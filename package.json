@@ -1,0 +1,38 @@
+{
+    "name": "amazon-bibliographic-information-to-scrapbox",
+    "version": "1.0.0",
+    "description": "Amazonのページから書誌情報を Scrapbox に取り込むブックマークレットです。元ネタ: https://rashita.net/blog/?p=26075",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "@cybozu/eslint-config": "^10.0.3",
+        "@typescript-eslint/eslint-plugin": "^2.33.0",
+        "@typescript-eslint/parser": "^2.33.0",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-import": "^2.20.2",
+        "eslint-plugin-prettier": "^3.1.3",
+        "prettier": "^2.0.5",
+        "ts-loader": "^7.0.4",
+        "typescript": "^3.9.2",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack",
+        "watch": "webpack -w",
+        "build.bookmarklet": "sed -e '1s/^/javascript:/' dist/main.js > dist/main.bookmark.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/akihisa1210/amazon-bibliographic-information-to-scrapbox.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/akihisa1210/amazon-bibliographic-information-to-scrapbox/issues"
+    },
+    "homepage": "https://github.com/akihisa1210/amazon-bibliographic-information-to-scrapbox#readme"
+}

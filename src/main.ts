@@ -3,7 +3,7 @@ interface HTMLElement {
   value: any;
 }
 
-(function () {
+const main = function () {
   const productTitle =
     document.getElementById("productTitle") ||
     document.getElementById("ebooksProductTitle");
@@ -84,4 +84,5 @@ interface HTMLElement {
       "?body=" +
       body
   );
-})();
+};
+main();

@@ -22,7 +22,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack",
         "watch": "webpack -w",
-        "build.bookmarklet": "sed -e '1s/^/javascript:/' dist/main.js > dist/main.bookmark.js"
+        "build.bookmarklet": "sed -e '1s/\\(^.*$\\)/javascript:\\1/' dist/main.js > dist/main.bookmark.js"
     },
     "repository": {
         "type": "git",

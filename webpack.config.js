@@ -1,3 +1,5 @@
+const BookmarkletWrapperPlugin = require("bookmarklet-wrapper-webpack-plugin");
+
 module.exports = {
   mode: "production",
   entry: "./src/main.ts",
@@ -12,4 +14,5 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js"],
   },
+  plugins: [new BookmarkletWrapperPlugin()],
 };

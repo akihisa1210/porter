@@ -3,7 +3,7 @@ interface HTMLElement {
   value: any;
 }
 
-const main = function () {
+const main2 = function () {
   const productTitle =
     document.getElementById("productTitle") ||
     document.getElementById("ebooksProductTitle");
@@ -84,5 +84,75 @@ const main = function () {
       "?body=" +
       body
   );
+};
+
+abstract class AmazonBibliograhicInformation {
+  productTitle: string;
+  asin: string;
+  detail: string;
+  publisher: string[];
+  description: string;
+  imageUrl: string;
+  author: string[];
+
+  abstract scrapeProductTitle(): string;
+  abstract scrapeAsin(): string;
+  scrapeDetail(): string {
+    return "test detail";
+  }
+  scrapePublisher(): string[] {
+    return ["publisher1", "publisher2"];
+  }
+  scrapeDescription(): string {
+    return "test description";
+  }
+  scrapeImageUrl(): string {
+    return "test url";
+  }
+  scrapeAuthor(): string[] {
+    return ["author1", "author2"];
+  }
+
+  constructor() {
+    this.productTitle = this.scrapeProductTitle();
+    this.asin = this.scrapeAsin();
+    this.detail = this.scrapeDetail();
+    this.publisher = this.scrapePublisher();
+    this.description = this.scrapeDescription();
+    this.imageUrl = this.scrapeImageUrl();
+    this.author = this.scrapeAuthor();
+  }
+}
+
+class PaperBookAmazonBibliograhicInformation extends AmazonBibliograhicInformation {
+  scrapeProductTitle(): string {
+    return document.getElementById("productTitle").innerText;
+  }
+
+  scrapeAsin(): string {
+    return document.getElementById("ASIN").value;
+  }
+}
+
+const getScrapboxPageTitle = (productTitle: string): string => {
+  const scrapboxPageTitle = window.prompt(
+    'Scrap "Amazon" to your scrapbox.',
+    `『${productTitle}』`
+  );
+  return scrapboxPageTitle;
+};
+
+const main = (): void => {
+  const amazonBibliograhicInformation = new PaperBookAmazonBibliograhicInformation();
+  // get html information
+  console.log(amazonBibliograhicInformation);
+
+  const scrapboxPageTitle = getScrapboxPageTitle(
+    amazonBibliograhicInformation.productTitle
+  );
+  console.log(scrapboxPageTitle);
+
+  // construct contant for scrapbox
+  // open scrapbox with content
 };
 main();

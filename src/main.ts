@@ -1,126 +1,65 @@
 // workaround for TS2339
+// TODO: remove them
 interface HTMLElement {
   value: any;
+  contentDocument: any;
+}
+interface Element {
+  innerText: string;
 }
 
-const main2 = function () {
-  const productTitle =
-    document.getElementById("productTitle") ||
-    document.getElementById("ebooksProductTitle");
+interface PublishInfo {
+  publisher: string;
+  publishDate: string;
+}
 
-  const pageTitle = window.prompt(
-    'Scrap "Amazon" to your scrapbox.',
-    `『${productTitle.innerHTML}』`
-  );
+interface AuthorInfo {
+  author: string;
+  contribution: string;
+}
 
-  if (!pageTitle) {
-    return;
-  }
-
-  /**
-   * Get ISBN/ASIN.
-   * For paper books, Amazon uses 'ASIN' element and it has ISBN.
-   * For ebooks, Amazon uses 'ASIN.0' element and it has ASIN.
-   */
-  const asin =
-    document.getElementById("ASIN") || document.getElementsByName("ASIN.0")[0];
-
-  /**
-   * Get product details.
-   */
-  const details =
-    document.getElementById("detail_bullets_id") ||
-    document.getElementById("productDetailsTable");
-  const detailsText = details.innerText;
-  const publisher = detailsText.match(/(出版社:.+)(\(.+\))/) || ["", "", ""]; // [0]出版社:シーアンドアール研究所 (2018/7/27),[1]出版社:シーアンドアール研究所,[2](2018/7/27)
-  publisher[1] = publisher[1].replace(/:/, ":["); // 出版社名をリンクにしないならこの2行は削除する
-  publisher[1] = publisher[1].match(/;/)
-    ? publisher[1].replace(/;/, "];")
-    : publisher[1] + "]";
-  // pubdata[2] = pubdata[2] + ' ';//リンクなし
-  // pubdata[2] = pubdata[2].replace(/\((\d+)\//, '([$1]/') + ' ';//年をリンクに
-  publisher[2] = publisher[2].replace(/\((\d+\/\d+)\//, "([$1]/") + " "; // 年月をリンクに
-
-  const d = document.getElementById("productDescription"); // 内容紹介の処理
-  // if (!d) {
-  //   const subdoc = document.getElementById("product-description-iframe")
-  //     .contentWindow.document;
-  //   var d = subdoc.getElementById("productDescription");
-  // }
-  const d1 = d.getElementsByTagName("p")[0];
-  // if (!d1) var d1 = d.getElementsByClassName("productDescriptionWrapper")[0];
-  const d2 = d1.innerText.replace(/\n/g, "\n>");
-  var imagecontainer = document.getElementById("imageBlockContainer"); // 書影の処理
-  if (!imagecontainer)
-    var imagecontainer = document.getElementById("ebooksImageBlockContainer");
-  const image = imagecontainer.getElementsByTagName("img")[0];
-  const imageurl = image.getAttribute("src");
-  const pub = [];
-  const c = document.getElementsByClassName("author");
-  for (let g = 0; g < c.length; g++) {
-    const at = c[g].textContent.replace(/,/, "");
-    const pu = at.match(/\(.+\)/);
-    const ct = at.replace(/\(.+\)/, "").replace(/ /g, "");
-    pub.push(pu + " [" + ct + "]");
-  }
-  const lines =
-    "[" +
-    imageurl +
-    " " +
-    window.location.href +
-    "]\n" +
-    pub.join(" ") +
-    "\n" +
-    publisher[1] +
-    publisher[2] +
-    `ISBN/ASIN: ${asin.value}` +
-    "\n>" +
-    d2 +
-    "\n#本\n"; // ページへの書き込み内容。ここで順番を変えればページ内容も変わります。
-  const body = encodeURIComponent(lines);
-  window.open(
-    "https://scrapbox.io/akihisa1210/" +
-      encodeURIComponent(pageTitle.trim()) +
-      "?body=" +
-      body
-  );
-};
+const scrapboxUserName = "akihisa1210";
 
 abstract class AmazonBibliograhicInformation {
   productTitle: string;
   asin: string;
-  detail: string;
-  publisher: string[];
+  publishInfo: PublishInfo;
   description: string;
   imageUrl: string;
-  author: string[];
+  authors: AuthorInfo[];
 
   abstract scrapeProductTitle(): string;
+
   abstract scrapeAsin(): string;
-  scrapeDetail(): string {
-    return "test detail";
-  }
-  scrapePublisher(): string[] {
-    return ["publisher1", "publisher2"];
-  }
-  scrapeDescription(): string {
-    return "test description";
-  }
-  scrapeImageUrl(): string {
-    return "test url";
-  }
-  scrapeAuthor(): string[] {
-    return ["author1", "author2"];
+
+  abstract scrapePublishInfo(): PublishInfo;
+
+  abstract scrapeDescription(): string;
+
+  abstract scrapeImageUrl(): string;
+
+  scrapeAuthors(): AuthorInfo[] {
+    const authorsHTMLCollectionArray = Array.from(
+      document.getElementsByClassName("author")
+    );
+    const authors: AuthorInfo[] = [];
+    for (const element of authorsHTMLCollectionArray) {
+      authors.push({
+        author: element.getElementsByTagName("a")[0].innerText,
+        contribution: element.getElementsByClassName("a-color-secondary")[0]
+          .innerText,
+      });
+    }
+    return authors;
   }
 
   constructor() {
     this.productTitle = this.scrapeProductTitle();
     this.asin = this.scrapeAsin();
-    this.detail = this.scrapeDetail();
-    this.publisher = this.scrapePublisher();
+    this.publishInfo = this.scrapePublishInfo();
     this.description = this.scrapeDescription();
     this.imageUrl = this.scrapeImageUrl();
-    this.author = this.scrapeAuthor();
+    this.authors = this.scrapeAuthors();
   }
 }
 
@@ -130,7 +69,39 @@ class PaperBookAmazonBibliograhicInformation extends AmazonBibliograhicInformati
   }
 
   scrapeAsin(): string {
-    return document.getElementById("ASIN").value;
+    return document.getElementById("ASIN").getAttribute("value");
+  }
+
+  scrapeImageUrl(): string {
+    return document.getElementById("imgBlkFront").getAttribute("src");
+  }
+
+  scrapeDescription(): string {
+    return document
+      .getElementById("bookDesc_iframe")
+      .contentDocument.getElementById("iframeContent").innerText;
+  }
+
+  scrapePublishInfo(): PublishInfo {
+    const RawPublishInfo = document
+      .getElementById("detail_bullets_id")
+      .innerText.match(/(出版社:.+)(\(.+\))/) || ["", "", ""];
+    // [0]出版社:シーアンドアール研究所 (2018/7/27),[1]出版社:シーアンドアール研究所,[2](2018/7/27)
+
+    let publisher = RawPublishInfo[1];
+    publisher = publisher.replace(/:/, ":["); // 出版社名をリンクにしないならこの2行は削除する
+    publisher = publisher.match(/;/)
+      ? publisher.replace(/;/, "];")
+      : publisher + "]";
+    const publishDate =
+      RawPublishInfo[2].replace(/\((\d+\/\d+)\//, "([$1]/") + " "; // 年月をリンクに
+
+    const publishInfo: PublishInfo = {
+      publisher: publisher,
+      publishDate: publishDate,
+    };
+
+    return publishInfo;
   }
 }
 
@@ -142,17 +113,52 @@ const getScrapboxPageTitle = (productTitle: string): string => {
   return scrapboxPageTitle;
 };
 
+const constructScrapboxPageContent = (
+  amazonBibliograhicInformation: AmazonBibliograhicInformation
+): string => {
+  const makeAuthorsLink = (authors: AuthorInfo[]): string[] => {
+    const authorsLink: string[] = [];
+    for (const author of authors) {
+      authorsLink.push(`[ ${author.author} ]${author.contribution}`);
+    }
+    return authorsLink;
+  };
+
+  return `[${amazonBibliograhicInformation.imageUrl} ${window.location.href}]
+${makeAuthorsLink(amazonBibliograhicInformation.authors).join(" ")}
+${amazonBibliograhicInformation.publishInfo.publisher} ${
+    amazonBibliograhicInformation.publishInfo.publishDate
+  }
+ISBN/ASIN: ${amazonBibliograhicInformation.asin}
+> ${amazonBibliograhicInformation.description.replace(/\n/g, "\n>")}
+#本`;
+};
+
+const openScrapboxWithEncodedTitleAndContent = (title, content): void => {
+  const encodedTitle = encodeURIComponent(title.trim());
+  const encodedContent: string = encodeURIComponent(content);
+  window.open(
+    `https://scrapbox.io/${scrapboxUserName}/${encodedTitle}?body=${encodedContent}`
+  );
+};
+
 const main = (): void => {
   const amazonBibliograhicInformation = new PaperBookAmazonBibliograhicInformation();
-  // get html information
-  console.log(amazonBibliograhicInformation);
+  console.log("amazonBibliograhicInformation", amazonBibliograhicInformation);
 
   const scrapboxPageTitle = getScrapboxPageTitle(
     amazonBibliograhicInformation.productTitle
   );
-  console.log(scrapboxPageTitle);
+  console.log("scrapboxPageTitle", scrapboxPageTitle);
 
-  // construct contant for scrapbox
-  // open scrapbox with content
+  const scrapboxPageContent = constructScrapboxPageContent(
+    amazonBibliograhicInformation
+  );
+  console.log("scrapboxPageContent", scrapboxPageContent);
+
+  openScrapboxWithEncodedTitleAndContent(
+    scrapboxPageTitle,
+    scrapboxPageContent
+  );
 };
 main();

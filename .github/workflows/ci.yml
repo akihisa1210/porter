@@ -31,7 +31,8 @@ jobs:
       - name: Test
         run: npm test
       - name: Upload coverage report
-        uses: actions/upload-artifact@v1.0.0
+        uses: codecov/codecov-action@v1.0.0
         with:
-          name: unit-test-coverage
-          path: coverage/lcov-report
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
+          flags: unittests

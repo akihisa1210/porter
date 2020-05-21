@@ -15,6 +15,7 @@ export abstract class AmazonBibliographicInformation {
   description: string;
   imageUrl: string;
   authors: AuthorInfo[];
+  currentUrl: string;
 
   abstract scrapeProductTitle(): string;
   abstract scrapeAsin(): string;
@@ -38,6 +39,11 @@ export abstract class AmazonBibliographicInformation {
     }
     return authors;
   }
+
+  protected scrapeCurrentUrl(): string {
+    return window.location.href;
+  }
+
   constructor() {
     this.productTitle = this.scrapeProductTitle();
     this.asin = this.scrapeAsin();
@@ -45,5 +51,6 @@ export abstract class AmazonBibliographicInformation {
     this.description = this.scrapeDescription();
     this.imageUrl = this.scrapeImageUrl();
     this.authors = this.scrapeAuthors();
+    this.currentUrl = this.scrapeCurrentUrl();
   }
 }

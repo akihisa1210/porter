@@ -15,16 +15,10 @@ export class Post {
   constructScrapboxPageContent(
     amazonBibliograhicInformation: AmazonBibliographicInformation
   ): string {
-    const makeAuthorsLink = (authors: AuthorInfo[]): string[] => {
-      const authorsLink: string[] = [];
-      for (const author of authors) {
-        authorsLink.push(`[ ${author.author} ]${author.contribution}`);
-      }
-      return authorsLink;
-    };
-
-    return `[${amazonBibliograhicInformation.imageUrl} ${window.location.href}]
-  ${makeAuthorsLink(amazonBibliograhicInformation.authors).join(" ")}
+    return `[${amazonBibliograhicInformation.imageUrl} ${
+      amazonBibliograhicInformation.currentUrl
+    }]
+  ${this.makeAuthorsLink(amazonBibliograhicInformation.authors).join(" ")}
   ${amazonBibliograhicInformation.publishInfo.publisher} ${
       amazonBibliograhicInformation.publishInfo.publishDate
     }
@@ -32,4 +26,12 @@ export class Post {
   > ${amazonBibliograhicInformation.description.replace(/\n/g, "\n>")}
   #本`;
   }
+
+  private makeAuthorsLink = (authors: AuthorInfo[]): string[] => {
+    const authorsLink: string[] = [];
+    for (const author of authors) {
+      authorsLink.push(`[ ${author.author} ]${author.contribution}`);
+    }
+    return authorsLink;
+  };
 }

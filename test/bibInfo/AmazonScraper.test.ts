@@ -1,0 +1,98 @@
+import { AmazonScraper } from "../../src/bibInfo/AmazonScraper";
+import { AuthorInfo, PublishInfo } from "../../src/bibInfo/bibInfo";
+
+test("Scrape Ebook title", () => {
+  const dom = `<span id="productTitle" class="a-size-extra-large">
+  testTitle
+</span>`;
+  document.body.innerHTML = dom;
+
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeEbookProductTitle()).toBe("testTitle");
+});
+
+test("Scrape Ebook asin", () => {
+  const dom = `<input type="hidden" name="ASIN.0" value="1234567890">
+<input type="hidden" name="ASIN.0" value="1234567890">
+<input type="hidden" name="ASIN.0" value="1234567890">`;
+  document.body.innerHTML = dom;
+
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeEbookAsin()).toBe("1234567890");
+});
+
+test("Scrape Ebook publish info", () => {
+  // Real dom is here but on jsdom document.getElementById.textContent for table
+  // doesn't work...
+  //
+  //   const dom = `<table id="productDetailsTable">
+  //   <tbody>
+  //     <tr>
+  //       <td>
+  //         <ul>
+  //           <li><b>フォーマット：</b> Kindle版</li>
+  //           <li><b>ファイルサイズ：</b> 1044 KB</li>
+  //           <li><b>推定ページ数：</b> 350 ページ</li>
+  //           <li><b>出版社:</b> testPublisher (2020/1/1)</li>
+  //         </ul>
+  //       </td>
+  //     </tr>
+  //   </tbody>
+  // </table>`;
+
+  const dom = `<div id="productDetailsTable">
+  <li><b>フォーマット：</b> Kindle版</li>
+  <li><b>ファイルサイズ：</b> 1044 KB</li>
+  <li><b>推定ページ数：</b> 350 ページ</li>
+  <li><b>出版社:</b> testPublisher (2020/1/1)</li>
+</div>`;
+
+  document.body.innerHTML = dom;
+
+  const scraper = new AmazonScraper();
+  const expectedPublishInfo: PublishInfo = {
+    publisher: "出版社:[ testPublisher ]",
+    publishDate: "([2020/1]/1)",
+  };
+  expect(scraper.scrapeEbookPublishInfo()).toEqual(expectedPublishInfo);
+});
+
+test("Scrape authors info", () => {
+  const dom = `<span class="author notFaded">
+  <span>testAuthor1
+    <span class="a-color-secondary">(testContribution1)</span>
+  </span>
+  <a>testAuthor1のAmazon著者ページを見る</a>
+  <a>検索結果</a>
+  <a></a>
+  <a>testAuthor1</a>
+  <a></a>
+  <span class="contribution">
+    <span class="a-color-secondary">(contribution1), </span>
+  </span>
+</span>
+
+<span class="author notFaded">
+  <a>testAuthor2</a>
+  <span class="contribution">
+    <span class="a-color-secondary">(testContribution2)</span>
+  </span>
+</span>
+
+`;
+  document.body.innerHTML = dom;
+
+  const expectedAuthors: AuthorInfo[] = [
+    {
+      author: "testAuthor1",
+      contribution: "(testContribution1)",
+    },
+    {
+      author: "testAuthor2",
+      contribution: "(testContribution2)",
+    },
+  ];
+
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeAuthorsInfo()).toEqual(expectedAuthors);
+});

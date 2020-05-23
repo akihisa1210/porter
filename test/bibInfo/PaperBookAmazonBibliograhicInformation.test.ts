@@ -1,4 +1,4 @@
-import { PaperBookAmazonBibliograhicInformation } from "../src/bibInfo/PaperBookAmazonBibliograhicInformation";
+import { PaperBookAmazonBibliograhicInformation } from "../../src/bibInfo/PaperBookAmazonBibliograhicInformation";
 
 const dom = `<div id="productTitle">sampleProductTitle</div>
 <div id="ASIN" value="sampleAsin"></div>

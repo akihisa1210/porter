@@ -9,19 +9,14 @@ import {
 const scrapboxUserName = "akihisa1210";
 
 const main = (): void => {
-  const amazonBibliograhicInformation = new PaperBookAmazonBibliograhicInformation();
-  console.log("amazonBibliograhicInformation", amazonBibliograhicInformation);
+  const bibInfo = new PaperBookAmazonBibliograhicInformation();
+  console.log("amazonBibliograhicInformation", bibInfo);
 
   const scrapboxPageTitle = new PostTitle(
-    window.prompt(
-      'Scrap "Amazon" to your scrapbox.',
-      `『${amazonBibliograhicInformation.productTitle}』`
-    )
+    window.prompt('Scrap "Amazon" to your scrapbox.', `『${bibInfo.title}』`)
   );
 
-  const scrapboxInfo = new ScrapboxBibliographicInformation(
-    amazonBibliograhicInformation
-  );
+  const scrapboxInfo = new ScrapboxBibliographicInformation(bibInfo);
 
   const scrapboxPageContent = new PostContent(scrapboxInfo.scrapboxInfo);
 

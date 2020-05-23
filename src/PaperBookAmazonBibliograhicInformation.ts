@@ -1,9 +1,24 @@
-import {
-  AmazonBibliographicInformation,
-  PublishInfo,
-} from "./AmazonBibliographicInformation";
+import { BibInfo, AuthorInfo, PublishInfo } from "./bibInfo/bibInfo";
 
-export class PaperBookAmazonBibliograhicInformation extends AmazonBibliographicInformation {
+export class PaperBookAmazonBibliograhicInformation implements BibInfo {
+  title: string;
+  isbn: string;
+  publishInfo: PublishInfo;
+  description: string;
+  imageUrl: string;
+  authorsInfo: AuthorInfo[];
+  sourceUrl: string;
+
+  constructor() {
+    this.title = this.scrapeProductTitle();
+    this.isbn = this.scrapeAsin();
+    this.publishInfo = this.scrapePublishInfo();
+    this.description = this.scrapeDescription();
+    this.imageUrl = this.scrapeImageUrl();
+    this.authorsInfo = this.scrapeAuthors();
+    this.sourceUrl = this.scrapeCurrentUrl();
+  }
+
   scrapeProductTitle(): string {
     return document.getElementById("productTitle").textContent;
   }
@@ -49,5 +64,26 @@ sampleDescription3 - from product code`;
       publishDate: publishDate,
     };
     return publishInfo;
+  }
+
+  protected scrapeAuthors(): AuthorInfo[] {
+    const authorsHTMLCollectionArray = Array.from(
+      document.getElementsByClassName("author")
+    );
+    const authors: AuthorInfo[] = [];
+    for (const element of authorsHTMLCollectionArray) {
+      const contributionHTMLElement: HTMLElement = element.getElementsByClassName(
+        "a-color-secondary"
+      )[0] as HTMLElement;
+      authors.push({
+        author: element.getElementsByTagName("a")[0].innerText,
+        contribution: contributionHTMLElement.innerText,
+      });
+    }
+    return authors;
+  }
+
+  protected scrapeCurrentUrl(): string {
+    return window.location.href;
   }
 }

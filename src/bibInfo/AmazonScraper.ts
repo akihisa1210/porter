@@ -1,4 +1,6 @@
-class AmazonScraper {
+import { PublishInfo, AuthorInfo } from "./bibInfo";
+
+export class AmazonScraper {
   scrapeEbookProductTitle(): string {
     return "productTitle!";
   }

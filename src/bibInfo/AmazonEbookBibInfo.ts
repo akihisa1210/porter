@@ -1,3 +1,6 @@
+import { BibInfo } from "./bibInfo";
+import { AmazonScraper } from "./AmazonScraper";
+
 class AmazonEbookBibInfo {
   private amazonEbookBibInfo: BibInfo;
 

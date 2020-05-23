@@ -1,14 +1,14 @@
-interface PublishInfo {
+export interface PublishInfo {
   publisher: string;
   publishDate: string;
 }
 
-interface AuthorInfo {
+export interface AuthorInfo {
   author: string;
   contribution: string;
 }
 
-interface BibInfo {
+export interface BibInfo {
   title: string;
   isbn: string;
   imageUrl: string;
@@ -16,10 +16,4 @@ interface BibInfo {
   authorsInfo: AuthorInfo[];
   publishInfo: PublishInfo;
   description: string;
-}
-
-interface BibInfoFactory {
-  create(): BibInfo;
-  createProduct(): BibInfo;
-  registerProduct(): void;
 }

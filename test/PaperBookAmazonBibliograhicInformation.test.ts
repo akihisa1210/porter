@@ -37,7 +37,7 @@ const dom = `<div id="productTitle">sampleProductTitle</div>
 test("Scrape product title", () => {
   document.body.innerHTML = dom;
   const expectedInformation = {
-    asin: "sampleAsin",
+    isbn: "sampleAsin",
     // authors: [
     //   {
     //     author: "sampleAuthor1",
@@ -49,7 +49,7 @@ test("Scrape product title", () => {
     //   },
     // ],
     // TODO: Author can not be got. The reason is not clear.
-    authors: [
+    authorsInfo: [
       {
         author: undefined,
         contribution: undefined,
@@ -59,12 +59,12 @@ test("Scrape product title", () => {
         contribution: undefined,
       },
     ],
-    currentUrl: "http://localhost/",
+    sourceUrl: "http://localhost/",
     description: `sampleDescription1 - from product code
 sampleDescription2 - from product code
 sampleDescription3 - from product code`,
     imageUrl: "sampleImageUrl",
-    productTitle: "sampleProductTitle",
+    title: "sampleProductTitle",
     publishInfo: {
       publishDate: "([2020/1]/1)",
       publisher: "出版社:[ samplePublisher ]",

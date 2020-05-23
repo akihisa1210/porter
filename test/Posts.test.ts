@@ -4,13 +4,13 @@ import {
   ScrapboxBibliographicInformation,
 } from "../src/Post";
 import { PaperBookAmazonBibliograhicInformation } from "../src/PaperBookAmazonBibliograhicInformation";
-import { AuthorInfo } from "../src/AmazonBibliographicInformation";
+import { AuthorInfo } from "../src/bibInfo/bibInfo";
 jest.mock("../src/PaperBookAmazonBibliograhicInformation");
 
 // Mock of PaperBookAmazonBibliograhicInformation
 const sampleBibliographicInformation = new PaperBookAmazonBibliograhicInformation();
-sampleBibliographicInformation.productTitle = "sampleProductTitel";
-sampleBibliographicInformation.asin = "sampleAsin";
+sampleBibliographicInformation.title = "sampleProductTitel";
+sampleBibliographicInformation.isbn = "sampleAsin";
 sampleBibliographicInformation.publishInfo = {
   publisher: "samplePublisher",
   publishDate: "samplePublishDate",
@@ -19,7 +19,7 @@ sampleBibliographicInformation.description = `sampleDescription1
 sampleDescription2
 sampleDescription3`;
 sampleBibliographicInformation.imageUrl = "sampleImageUrl";
-sampleBibliographicInformation.authors = [
+sampleBibliographicInformation.authorsInfo = [
   {
     author: "author1",
     contribution: "(contribution1)",
@@ -29,7 +29,7 @@ sampleBibliographicInformation.authors = [
     contribution: "(contribution2)",
   } as AuthorInfo,
 ];
-sampleBibliographicInformation.currentUrl = "sampleCurrentUrl";
+sampleBibliographicInformation.sourceUrl = "sampleCurrentUrl";
 
 test("Valid post title is created", () => {
   const title = new PostTitle("sample");

@@ -1,9 +1,10 @@
-import { Post } from "../src/Post";
+import { Post, PostTitle } from "../src/Post";
 import { PaperBookAmazonBibliograhicInformation } from "../src/PaperBookAmazonBibliograhicInformation";
 jest.mock("../src/PaperBookAmazonBibliograhicInformation");
 
 test("constructScrapboxPageContent() constructs valid bibliographic information", () => {
-  const post = new Post();
+  const samplePostTitle = new PostTitle("samplePosttitle");
+  const post = new Post(samplePostTitle);
   const sampleBibliographicInformation = new PaperBookAmazonBibliograhicInformation();
   sampleBibliographicInformation.productTitle = "sampleProductTitel";
   sampleBibliographicInformation.asin = "sampleAsin";

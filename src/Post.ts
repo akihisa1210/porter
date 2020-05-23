@@ -3,14 +3,19 @@ import {
   AuthorInfo,
 } from "./AmazonBibliographicInformation";
 
-export class Post {
-  constructScrapboxPageTitle(productTitle: string): string {
-    const scrapboxPageTitle = window.prompt(
-      'Scrap "Amazon" to your scrapbox.',
-      `『${productTitle}』`
-    );
-    return scrapboxPageTitle;
+export class PostTitle {
+  private title: string;
+
+  constructor(title: string) {
+    if (title === "") {
+      throw new Error("Scrapbox page title must not be empty.");
+    }
+    this.title = title;
   }
+}
+
+export class Post {
+  constructor(private title: PostTitle) {}
 
   constructScrapboxPageContent(
     amazonBibliograhicInformation: AmazonBibliographicInformation

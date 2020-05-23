@@ -36,7 +36,6 @@ const dom = `<div id="productTitle">sampleProductTitle</div>
 
 test("Scrape product title", () => {
   document.body.innerHTML = dom;
-  console.log(document.getElementsByClassName("author"));
   const expectedInformation = {
     asin: "sampleAsin",
     // authors: [
@@ -74,6 +73,5 @@ sampleDescription3 - from product code`,
 
   const pabi = new PaperBookAmazonBibliograhicInformation();
 
-  console.log(pabi);
   expect(pabi).toEqual(expectedInformation);
 });

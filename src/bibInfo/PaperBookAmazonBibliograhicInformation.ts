@@ -1,4 +1,4 @@
-import { BibInfo, AuthorInfo, PublishInfo } from "./bibInfo/bibInfo";
+import { BibInfo, AuthorInfo, PublishInfo } from "./bibInfo";
 
 export class PaperBookAmazonBibliograhicInformation implements BibInfo {
   title: string;

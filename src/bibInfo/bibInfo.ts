@@ -8,7 +8,7 @@ export interface AuthorInfo {
   contribution: string;
 }
 
-export interface BibInfo {
+export class BibInfo {
   title: string;
   isbn: string;
   imageUrl: string;

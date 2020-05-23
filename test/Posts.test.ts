@@ -3,9 +3,9 @@ import {
   PostContent,
   ScrapboxBibliographicInformation,
 } from "../src/Post";
-import { PaperBookAmazonBibliograhicInformation } from "../src/PaperBookAmazonBibliograhicInformation";
+import { PaperBookAmazonBibliograhicInformation } from "../src/bibInfo/PaperBookAmazonBibliograhicInformation";
 import { AuthorInfo } from "../src/bibInfo/bibInfo";
-jest.mock("../src/PaperBookAmazonBibliograhicInformation");
+jest.mock("../src/bibInfo/PaperBookAmazonBibliograhicInformation");
 
 // Mock of PaperBookAmazonBibliograhicInformation
 const sampleBibliographicInformation = new PaperBookAmazonBibliograhicInformation();

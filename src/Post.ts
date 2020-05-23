@@ -4,7 +4,7 @@ import {
 } from "./AmazonBibliographicInformation";
 
 export class PostTitle {
-  private title: string;
+  title: string;
 
   constructor(title: string) {
     if (title === "") {
@@ -14,30 +14,32 @@ export class PostTitle {
   }
 }
 
-export class Post {
-  constructor(private title: PostTitle) {}
+export class PostContent {
+  content: string;
 
-  constructScrapboxPageContent(
-    amazonBibliograhicInformation: AmazonBibliographicInformation
-  ): string {
-    return `[${amazonBibliograhicInformation.imageUrl} ${
-      amazonBibliograhicInformation.currentUrl
-    }]
-${this.makeAuthorsLink(amazonBibliograhicInformation.authors).join(" ")}
-${amazonBibliograhicInformation.publishInfo.publisher} ${
-      amazonBibliograhicInformation.publishInfo.publishDate
-    }
-ISBN/ASIN: ${amazonBibliograhicInformation.asin}
->${amazonBibliograhicInformation.description.replace(/\n/g, "\n>")}
-#本
-`;
+  constructor(content: string) {
+    this.content = content;
   }
+}
 
-  private makeAuthorsLink = (authors: AuthorInfo[]): string[] => {
+export class ScrapboxBibliographicInformation {
+  scrapboxInfo: string;
+
+  private makeAuthorsLink(authors: AuthorInfo[]): string[] {
     const authorsLink: string[] = [];
     for (const author of authors) {
       authorsLink.push(`[${author.author}]${author.contribution}`);
     }
     return authorsLink;
-  };
+  }
+
+  constructor(info: AmazonBibliographicInformation) {
+    this.scrapboxInfo = `[${info.imageUrl} ${info.currentUrl}]
+${this.makeAuthorsLink(info.authors).join(" ")}
+${info.publishInfo.publisher} ${info.publishInfo.publishDate}
+ISBN/ASIN: ${info.asin}
+>${info.description.replace(/\n/g, "\n>")}
+#本
+`;
+  }
 }

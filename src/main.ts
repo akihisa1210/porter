@@ -1,6 +1,10 @@
 import { PaperBookAmazonBibliograhicInformation } from "./PaperBookAmazonBibliograhicInformation";
 import { Scrapbox } from "./Scrapbox";
-import { Post, PostTitle } from "./Post";
+import {
+  PostTitle,
+  PostContent,
+  ScrapboxBibliographicInformation,
+} from "./Post";
 
 const scrapboxUserName = "akihisa1210";
 
@@ -15,12 +19,11 @@ const main = (): void => {
     )
   );
 
-  const post = new Post(scrapboxPageTitle);
-  console.log("scrapboxPageTitle", scrapboxPageTitle);
-  const scrapboxPageContent = post.constructScrapboxPageContent(
+  const scrapboxInfo = new ScrapboxBibliographicInformation(
     amazonBibliograhicInformation
   );
-  console.log("scrapboxPageContent", scrapboxPageContent);
+
+  const scrapboxPageContent = new PostContent(scrapboxInfo.scrapboxInfo);
 
   const scrapbox = new Scrapbox(scrapboxUserName);
   window.open(

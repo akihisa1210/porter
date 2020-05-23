@@ -17,3 +17,9 @@ interface BibInfo {
   publishInfo: PublishInfo;
   description: string;
 }
+
+interface BibInfoFactory {
+  create(): BibInfo;
+  createProduct(): BibInfo;
+  registerProduct(): void;
+}

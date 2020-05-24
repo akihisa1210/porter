@@ -37,17 +37,6 @@ export class AmazonScraper {
     const iframeContent = bookDescIframe.contentDocument.getElementById(
       "iframeContent"
     );
-
-    // For testing, jsdom can not get dom inside iframe.
-    // This method return sample description on test code
-    // because we must instantiate this class for testing.
-    // TODO: Separate this method from constructor.
-    //     if (iframeContent === null) {
-    //       return `sampleDescription1 - from product code
-    // sampleDescription2 - from product code
-    // sampleDescription3 - from product code`;
-    //     }
-
     return iframeContent.textContent;
   }
 

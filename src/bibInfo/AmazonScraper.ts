@@ -30,16 +30,33 @@ export class AmazonScraper {
     return publishInfo;
   }
 
-  scrapeEbookDescription(): string {
-    return "description!";
+  scrapeDescription(): string {
+    const bookDescIframe: HTMLIFrameElement = document.getElementById(
+      "bookDesc_iframe"
+    ) as HTMLIFrameElement;
+    const iframeContent = bookDescIframe.contentDocument.getElementById(
+      "iframeContent"
+    );
+
+    // For testing, jsdom can not get dom inside iframe.
+    // This method return sample description on test code
+    // because we must instantiate this class for testing.
+    // TODO: Separate this method from constructor.
+    //     if (iframeContent === null) {
+    //       return `sampleDescription1 - from product code
+    // sampleDescription2 - from product code
+    // sampleDescription3 - from product code`;
+    //     }
+
+    return iframeContent.textContent;
   }
 
   scrapeEbookImageUrl(): string {
-    return "imageUrl";
+    return document.getElementById("ebooksImgBlkFront").getAttribute("src");
   }
 
-  scrapeEbookCurrentUrl(): string {
-    return "currentUrl";
+  scrapeCurrentUrl(): string {
+    return window.location.href;
   }
 
   scrapeAuthorsInfo(): AuthorInfo[] {

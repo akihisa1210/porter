@@ -11,9 +11,9 @@ export class AmazonEbookBibInfoFactory {
     this.bibInfo.isbn = this.amazonScraper.scrapeEbookAsin();
     this.bibInfo.imageUrl = this.amazonScraper.scrapeEbookImageUrl();
     this.bibInfo.sourceUrl = this.amazonScraper.scrapeEbookCurrentUrl();
-    this.bibInfo.authorsInfo = this.amazonScraper.scrapeAuthors();
+    this.bibInfo.authorsInfo = this.amazonScraper.scrapeAuthorsInfo();
     this.bibInfo.publishInfo = this.amazonScraper.scrapeEbookPublishInfo();
-    this.bibInfo.description = this.amazonScraper.scrapeEbookDescription();
+    this.bibInfo.description = this.amazonScraper.scrapeDescription();
     return this.bibInfo;
   }
 }

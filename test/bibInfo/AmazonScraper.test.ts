@@ -57,6 +57,47 @@ test("Scrape Ebook publish info", () => {
   expect(scraper.scrapeEbookPublishInfo()).toEqual(expectedPublishInfo);
 });
 
+// Real dom is here but on jsdom document.getElementById.textContent for iframe
+// doesn't work...
+//
+// test("Scrape description", () => {
+//   const dom = `<iframe id="bookDesc_iframe">
+//   #document
+//     <html>
+//       <head></head>
+//       <body>
+//         <div iframeContent>
+//           sampleDiscription1
+//           sampleDiscription2
+//           sampleDiscription3
+//         </div>
+//       </body>
+//     </html>
+// </iframe>`;
+//   document.body.innerHTML = dom;
+//
+//   const scraper = new AmazonScraper();
+//   expect(scraper.scrapeDescription()).toBe(`sampleDescription1
+// sampleDescription2
+// sampleDescription3`);
+// });
+
+// Real dom is here but on jsdom document.getElementById for img
+// doesn't work...
+//
+// test("Scrape Ebook image URL", () => {
+//   const dom = `<img src="testImageUrl" id="ebooksImgBlkFront">`;
+//   document.body.innerHTML = dom;
+
+//   const scraper = new AmazonScraper();
+//   expect(scraper.scrapeEbookAsin()).toBe("testImageUrl");
+// });
+
+test("Scrape current URL", () => {
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeCurrentUrl()).toBe("http://localhost/");
+});
+
 test("Scrape authors info", () => {
   const dom = `<span class="author notFaded">
   <span>testAuthor1

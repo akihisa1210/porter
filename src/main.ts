@@ -6,7 +6,7 @@ import {
   ScrapboxBibliographicInformation,
 } from "./Post";
 import { Amazon } from "./site/amazon";
-import { AmazonEbookBibInfoFactory } from "./bibInfo/AmazonEbookBibInfoFactory";
+import { BibInfoFactory } from "./bibInfo/bibInfoFactory";
 
 const scrapboxUserName = "akihisa1210";
 
@@ -15,8 +15,8 @@ const main = (): void => {
   let bibInfo;
   if (amazon.isEbook()) {
     console.log("This is ebook.");
-    const factory = new AmazonEbookBibInfoFactory();
-    bibInfo = factory.scrapeAmazonBibInfo();
+    const factory = new BibInfoFactory();
+    bibInfo = factory.createBibInfo("AmazonEbookBibInfo");
     console.log("AmazonEbookBibInfo", bibInfo);
   } else {
     console.log("This is paper book.");
@@ -33,8 +33,8 @@ const main = (): void => {
   const scrapboxPageContent = new PostContent(scrapboxInfo.scrapboxInfo);
 
   const scrapbox = new Scrapbox(scrapboxUserName);
-  // window.open(
-  //   scrapbox.constructScrapboxUrl(scrapboxPageTitle, scrapboxPageContent)
-  // );
+  window.open(
+    scrapbox.constructScrapboxUrl(scrapboxPageTitle, scrapboxPageContent)
+  );
 };
 main();

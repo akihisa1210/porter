@@ -1,4 +1,3 @@
-import { PaperBookAmazonBibliograhicInformation } from "./bibInfo/PaperBookAmazonBibliograhicInformation";
 import { Scrapbox } from "./Scrapbox";
 import {
   PostTitle,
@@ -13,14 +12,14 @@ const scrapboxUserName = "akihisa1210";
 const main = (): void => {
   const amazon = new Amazon();
   let bibInfo;
+  const factory = new BibInfoFactory();
   if (amazon.isEbook()) {
     console.log("This is ebook.");
-    const factory = new BibInfoFactory();
     bibInfo = factory.createBibInfo("AmazonEbookBibInfo");
     console.log("AmazonEbookBibInfo", bibInfo);
   } else {
     console.log("This is paper book.");
-    bibInfo = new PaperBookAmazonBibliograhicInformation();
+    bibInfo = factory.createBibInfo("AmazonPaperBookBibInfo");
     console.log("PaperBookAmazonBibliograhicInformation", bibInfo);
   }
 

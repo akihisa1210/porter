@@ -18,39 +18,33 @@ export class AmazonScraper {
   }
 
   scrapeEbookPublishInfo(): PublishInfo {
-    const rawPublishInfo = document
-      .getElementById("productDetailsTable")
-      .textContent.match(/(出版社:.+)(\(.+\))/);
+    const rawPublishInfo: string = document.getElementById(
+      "productDetailsTable"
+    ).textContent;
 
-    let publisher = rawPublishInfo[1];
-
-    // TODO: Move linking function to other place.
-    publisher = publisher.replace(/:/, ":[");
-    publisher = publisher.match(/;/)
-      ? publisher.replace(/;/, "];")
-      : publisher + "]";
-    const publishDate = rawPublishInfo[2].replace(/\((\d+\/\d+)\//, "([$1]/");
-
-    const publishInfo: PublishInfo = {
-      publisher: publisher,
-      publishDate: publishDate,
-    };
-    return publishInfo;
+    return this.generatePublishInfo(rawPublishInfo);
   }
 
   scrapePaperBookPublishInfo(): PublishInfo {
-    const rawPublishInfo = document
-      .getElementById("detail_bullets_id")
-      .textContent.match(/(出版社:.+)(\(.+\))/);
+    const rawPublishInfo: string = document.getElementById("detail_bullets_id")
+      .textContent;
 
-    let publisher = rawPublishInfo[1];
+    return this.generatePublishInfo(rawPublishInfo);
+  }
+
+  private generatePublishInfo(rawPublishInfo: string): PublishInfo {
+    const publishInfoArray: RegExpMatchArray = rawPublishInfo.match(
+      /(出版社:.+)(\(.+\))/
+    );
+    let publisher = publishInfoArray[1];
 
     // TODO: Move linking function to other place.
     publisher = publisher.replace(/:/, ":[");
     publisher = publisher.match(/;/)
       ? publisher.replace(/;/, "];")
       : publisher + "]";
-    const publishDate = rawPublishInfo[2].replace(/\((\d+\/\d+)\//, "([$1]/");
+
+    const publishDate = publishInfoArray[2].replace(/\((\d+\/\d+)\//, "([$1]/");
 
     const publishInfo: PublishInfo = {
       publisher: publisher,

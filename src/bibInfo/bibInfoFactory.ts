@@ -1,5 +1,5 @@
 import { BibInfo } from "./bibInfo";
-import { AmazonScraper } from "./AmazonScraper";
+import { AmazonScraper } from "./amazonScraper";
 
 export class BibInfoFactory {
   createBibInfo(kind: BibInfoKind): BibInfo | void {
@@ -7,7 +7,7 @@ export class BibInfoFactory {
       const bibInfo = new BibInfo();
       const amazonScraper = new AmazonScraper();
 
-      bibInfo.title = amazonScraper.scrapeEbookProductTitle();
+      bibInfo.title = amazonScraper.scrapeProductTitle();
       bibInfo.isbn = amazonScraper.scrapeEbookAsin();
       bibInfo.imageUrl = amazonScraper.scrapeEbookImageUrl();
       bibInfo.sourceUrl = amazonScraper.scrapeCurrentUrl();
@@ -17,8 +17,22 @@ export class BibInfoFactory {
 
       return bibInfo;
     }
+    if (kind === "AmazonPaperBookBibInfo") {
+      const bibInfo = new BibInfo();
+      const amazonScraper = new AmazonScraper();
+
+      bibInfo.title = amazonScraper.scrapeProductTitle();
+      bibInfo.isbn = amazonScraper.scrapePaperBookAsin();
+      bibInfo.imageUrl = amazonScraper.scrapePaperBookImageUrl();
+      bibInfo.sourceUrl = amazonScraper.scrapeCurrentUrl();
+      bibInfo.authorsInfo = amazonScraper.scrapeAuthorsInfo();
+      bibInfo.publishInfo = amazonScraper.scrapePaperBookPublishInfo();
+      bibInfo.description = amazonScraper.scrapeDescription();
+
+      return bibInfo;
+    }
     throw new Error("Type is invalid.");
   }
 }
 
-type BibInfoKind = "AmazonEbookBibInfo";
+type BibInfoKind = "AmazonEbookBibInfo" | "AmazonPaperBookBibInfo";

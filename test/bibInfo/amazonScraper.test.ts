@@ -143,7 +143,7 @@ test("Scrape paper book asin", () => {
   document.body.innerHTML = dom;
 
   const scraper = new AmazonScraper();
-  expect(scraper.scrapePaperBookAsinTitle()).toBe("testPaperBookAsin");
+  expect(scraper.scrapePaperBookAsin()).toBe("testPaperBookAsin");
 });
 
 test("Scrape paper book image url", () => {

@@ -13,7 +13,7 @@ export class AmazonScraper {
     return document.getElementsByName("ASIN.0")[0].getAttribute("value");
   }
 
-  scrapePaperBookAsinTitle(): string {
+  scrapePaperBookAsin(): string {
     return document.getElementById("ASIN").getAttribute("value");
   }
 

@@ -5,10 +5,6 @@ export class AmazonScraper {
     return document.getElementById("productTitle").textContent.trim();
   }
 
-  scrapePaperBookProductTitle(): string {
-    return document.getElementById("productTitle").textContent.trim();
-  }
-
   scrapeEbookAsin(): string {
     return document.getElementsByName("ASIN.0")[0].getAttribute("value");
   }

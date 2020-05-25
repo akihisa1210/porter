@@ -1,7 +1,11 @@
 import { PublishInfo, AuthorInfo } from "./bibInfo";
 
 export class AmazonScraper {
-  scrapeEbookProductTitle(): string {
+  scrapeProductTitle(): string {
+    return document.getElementById("productTitle").textContent.trim();
+  }
+
+  scrapePaperBookProductTitle(): string {
     return document.getElementById("productTitle").textContent.trim();
   }
 
@@ -9,9 +13,34 @@ export class AmazonScraper {
     return document.getElementsByName("ASIN.0")[0].getAttribute("value");
   }
 
+  scrapePaperBookAsinTitle(): string {
+    return document.getElementById("ASIN").getAttribute("value");
+  }
+
   scrapeEbookPublishInfo(): PublishInfo {
     const rawPublishInfo = document
       .getElementById("productDetailsTable")
+      .textContent.match(/(出版社:.+)(\(.+\))/);
+
+    let publisher = rawPublishInfo[1];
+
+    // TODO: Move linking function to other place.
+    publisher = publisher.replace(/:/, ":[");
+    publisher = publisher.match(/;/)
+      ? publisher.replace(/;/, "];")
+      : publisher + "]";
+    const publishDate = rawPublishInfo[2].replace(/\((\d+\/\d+)\//, "([$1]/");
+
+    const publishInfo: PublishInfo = {
+      publisher: publisher,
+      publishDate: publishDate,
+    };
+    return publishInfo;
+  }
+
+  scrapePaperBookPublishInfo(): PublishInfo {
+    const rawPublishInfo = document
+      .getElementById("detail_bullets_id")
       .textContent.match(/(出版社:.+)(\(.+\))/);
 
     let publisher = rawPublishInfo[1];
@@ -42,6 +71,10 @@ export class AmazonScraper {
 
   scrapeEbookImageUrl(): string {
     return document.getElementById("ebooksImgBlkFront").getAttribute("src");
+  }
+
+  scrapePaperBookImageUrl(): string {
+    return document.getElementById("imgBlkFront").getAttribute("src");
   }
 
   scrapeCurrentUrl(): string {

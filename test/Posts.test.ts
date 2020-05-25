@@ -3,33 +3,7 @@ import {
   PostContent,
   ScrapboxBibliographicInformation,
 } from "../src/Post";
-import { PaperBookAmazonBibliograhicInformation } from "../src/PaperBookAmazonBibliograhicInformation";
-import { AuthorInfo } from "../src/AmazonBibliographicInformation";
-jest.mock("../src/PaperBookAmazonBibliograhicInformation");
-
-// Mock of PaperBookAmazonBibliograhicInformation
-const sampleBibliographicInformation = new PaperBookAmazonBibliograhicInformation();
-sampleBibliographicInformation.productTitle = "sampleProductTitel";
-sampleBibliographicInformation.asin = "sampleAsin";
-sampleBibliographicInformation.publishInfo = {
-  publisher: "samplePublisher",
-  publishDate: "samplePublishDate",
-};
-sampleBibliographicInformation.description = `sampleDescription1
-sampleDescription2
-sampleDescription3`;
-sampleBibliographicInformation.imageUrl = "sampleImageUrl";
-sampleBibliographicInformation.authors = [
-  {
-    author: "author1",
-    contribution: "(contribution1)",
-  },
-  {
-    author: "author2",
-    contribution: "(contribution2)",
-  } as AuthorInfo,
-];
-sampleBibliographicInformation.currentUrl = "sampleCurrentUrl";
+import { BibInfo } from "../src/bibInfo/bibInfo";
 
 test("Valid post title is created", () => {
   const title = new PostTitle("sample");
@@ -46,9 +20,30 @@ test("Empty title must not be created", () => {
 });
 
 test("Valid post content is created from bibliographic information", () => {
-  const sampleScrapboxInfo = new ScrapboxBibliographicInformation(
-    sampleBibliographicInformation
-  );
+  const bibInfo: BibInfo = {
+    title: "sampleProductTitle",
+    isbn: "sampleAsin",
+    publishInfo: {
+      publisher: "samplePublisher",
+      publishDate: "samplePublishDate",
+    },
+    description: `sampleDescription1
+sampleDescription2
+sampleDescription3`,
+    imageUrl: "sampleImageUrl",
+    authorsInfo: [
+      {
+        author: "author1",
+        contribution: "(contribution1)",
+      },
+      {
+        author: "author2",
+        contribution: "(contribution2)",
+      },
+    ],
+    sourceUrl: "sampleCurrentUrl",
+  };
+  const sampleScrapboxInfo = new ScrapboxBibliographicInformation(bibInfo);
   const samplePostContent = new PostContent(sampleScrapboxInfo.scrapboxInfo);
 
   const expectedContent = `[sampleImageUrl sampleCurrentUrl]

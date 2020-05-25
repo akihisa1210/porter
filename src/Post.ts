@@ -1,7 +1,4 @@
-import {
-  AmazonBibliographicInformation,
-  AuthorInfo,
-} from "./AmazonBibliographicInformation";
+import { BibInfo, AuthorInfo } from "./bibInfo/bibInfo";
 
 export class PostTitle {
   title: string;
@@ -33,11 +30,11 @@ export class ScrapboxBibliographicInformation {
     return authorsLink;
   }
 
-  constructor(info: AmazonBibliographicInformation) {
-    this.scrapboxInfo = `[${info.imageUrl} ${info.currentUrl}]
-${this.makeAuthorsLink(info.authors).join(" ")}
+  constructor(info: BibInfo) {
+    this.scrapboxInfo = `[${info.imageUrl} ${info.sourceUrl}]
+${this.makeAuthorsLink(info.authorsInfo).join(" ")}
 ${info.publishInfo.publisher} ${info.publishInfo.publishDate}
-ISBN/ASIN: ${info.asin}
+ISBN/ASIN: ${info.isbn}
 >${info.description.replace(/\n/g, "\n>")}
 #本
 `;

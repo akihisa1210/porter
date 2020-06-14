@@ -17,3 +17,11 @@ test("Paper book is selected", () => {
   const amazon = new Amazon();
   expect(amazon.isEbook()).toBe(false);
 });
+
+test("Select panel is not exist (e.g. old book)", () => {
+  const dom = `<div></div>`;
+  document.body.innerHTML = dom;
+
+  const amazon = new Amazon();
+  expect(amazon.isEbook()).toBe(false);
+});

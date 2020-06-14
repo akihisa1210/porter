@@ -53,6 +53,9 @@ export class AmazonScraper {
     const bookDescIframe: HTMLIFrameElement = document.getElementById(
       "bookDesc_iframe"
     ) as HTMLIFrameElement;
+    if (bookDescIframe === null) {
+      return "";
+    }
     const iframeContent = bookDescIframe.contentDocument.getElementById(
       "iframeContent"
     );

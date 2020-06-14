@@ -82,6 +82,14 @@ test("Scrape Ebook publish info", () => {
 // sampleDescription3`);
 // });
 
+test("Scrape empty description", () => {
+  const dom = `<div></div>`;
+  document.body.innerHTML = dom;
+
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeDescription()).toBe(``);
+});
+
 // Real dom is here but on jsdom document.getElementById for img
 // doesn't work...
 //

@@ -55,7 +55,9 @@ export class AmazonScraper {
     const iframeContent = bookDescIframe.contentDocument.getElementById(
       "iframeContent"
     );
-    return iframeContent.textContent;
+    return iframeContent.innerHTML
+      .replace(/<\/?b>/g, "")
+      .replace(/<br>/g, "\n");
   }
 
   scrapeEbookImageUrl(): string {

@@ -77,30 +77,31 @@ test("Scrape Ebook publish info", () => {
   expect(scraper.scrapeEbookPublishInfo()).toEqual(expectedPublishInfo);
 });
 
-// Real dom is here but on jsdom document.getElementById.textContent for iframe
-// doesn't work...
-//
-// test("Scrape description", () => {
-//   const dom = `<iframe id="bookDesc_iframe">
-//   #document
-//     <html>
-//       <head></head>
-//       <body>
-//         <div iframeContent>
-//           sampleDiscription1
-//           sampleDiscription2
-//           sampleDiscription3
-//         </div>
-//       </body>
-//     </html>
-// </iframe>`;
-//   document.body.innerHTML = dom;
-//
-//   const scraper = new AmazonScraper();
-//   expect(scraper.scrapeDescription()).toBe(`sampleDescription1
-// sampleDescription2
-// sampleDescription3`);
-// });
+test("Scrape description", () => {
+  // <iframe id="bookDesc_iframe">
+  //   <div id="iframeContent">
+  //     <b>sampleDescription1</b><br>
+  //     sampleDescription2<br>
+  //     sampleDescription3<br>
+  //   </div>
+  // </iframe>`;
+
+  const iframe = document.createElement("iframe");
+  iframe.id = "bookDesc_iframe";
+  document.body.appendChild(iframe);
+
+  const iframeContent = document.createElement("div");
+  iframeContent.id = "iframeContent";
+  iframeContent.innerHTML = `<b>sampleDescription1</b><br>sampleDescription2<br>sampleDescription3<br>`;
+
+  iframe.contentWindow.document.body.appendChild(iframeContent);
+
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeDescription()).toBe(`sampleDescription1
+sampleDescription2
+sampleDescription3
+`);
+});
 
 test("Scrape empty description", () => {
   const dom = `<div></div>`;

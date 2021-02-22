@@ -202,3 +202,28 @@ test("Scrape paper book publish info", () => {
   };
   expect(scraper.scrapePaperBookPublishInfo()).toEqual(expectedPublishInfo);
 });
+
+test("Scrape paper book publish info if line feed increases in dom", () => {
+  const dom = `<div id="detailBulletsWrapper_feature_div">
+<ul>
+<li><span class="a-list-item">
+<span class="detail-bullet-label a-text-bold">出版社
+
+
+:
+
+
+</span>
+<span>testPaperBookPublisher (2020/1/1)</span>
+</span></li>
+</ul>
+</div>`;
+  document.body.innerHTML = dom;
+
+  const scraper = new AmazonScraper();
+  const expectedPublishInfo: PublishInfo = {
+    publisher: "testPaperBookPublisher",
+    publishDate: "2020/1/1",
+  };
+  expect(scraper.scrapePaperBookPublishInfo()).toEqual(expectedPublishInfo);
+});

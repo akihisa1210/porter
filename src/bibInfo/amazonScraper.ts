@@ -14,25 +14,27 @@ export class AmazonScraper {
   }
 
   scrapeEbookPublishInfo(): PublishInfo {
-    const rawPublishInfo: string = document.getElementById(
-      "detailBullets_feature_div"
-    ).textContent;
+    const productDetails: string = document
+      .getElementById("detailBullets_feature_div")
+      .textContent.replace(/r?\n/g, "");
 
-    return this.generatePublishInfo(rawPublishInfo);
+    return this.generatePublishInfo(productDetails);
   }
 
   scrapePaperBookPublishInfo(): PublishInfo {
-    const rawPublishInfo: string = document.getElementById(
-      "detailBulletsWrapper_feature_div"
-    ).textContent;
+    const productDetails: string = document
+      .getElementById("detailBulletsWrapper_feature_div")
+      .textContent.replace(/r?\n/g, "");
 
-    return this.generatePublishInfo(rawPublishInfo);
+    console.log(productDetails); // debug
+    return this.generatePublishInfo(productDetails);
   }
 
   private generatePublishInfo(rawPublishInfo: string): PublishInfo {
     const publishInfoArray: RegExpMatchArray = rawPublishInfo.match(
-      /出版社\r?\n:\r?\n\r?\n(.*)\((.*)\)/
+      /.*出版社:(.*?)\((.*?)\)/
     );
+    console.log(publishInfoArray); // debug
     const publisher = publishInfoArray[1].trim();
     const publishDate = publishInfoArray[2];
 

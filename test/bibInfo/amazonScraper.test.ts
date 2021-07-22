@@ -22,49 +22,169 @@ test("Scrape Ebook asin", () => {
 });
 
 test("Scrape Ebook publish info", () => {
-  // Real dom is here but on jsdom document.getElementById.textContent for table
-  // doesn't work...
-  //
-  //   const dom = `<table id="productDetailsTable">
-  //   <tbody>
-  //     <tr>
-  //       <td>
-  //         <ul>
-  //           <li><b>フォーマット：</b> Kindle版</li>
-  //           <li><b>ファイルサイズ：</b> 1044 KB</li>
-  //           <li><b>推定ページ数：</b> 350 ページ</li>
-  //           <li><b>出版社:</b> testPublisher (2020/1/1)</li>
-  //         </ul>
-  //       </td>
-  //     </tr>
-  //   </tbody>
-  // </table>`;
-
-  const dom = `<div id="detailBullets_feature_div">
-<li><span class="a-list-item">
-<span class="detail-bullet-label a-text-bold">ファイルサイズ
-:
+  const dom = `<div id="detailBullets_feature_div" class="celwidget" data-feature-name="detailBullets" data-csa-c-id="wg3msw-mazb3p-xojpob-8e8j9v" data-cel-widget="detailBullets_feature_div">
+<style type="text/css">
+.detail-bullets-wrapper ul.detail-bullet-list {
+margin: 0 0 1px 18px;
+}
+.detail-bullets-wrapper ul li {
+margin-bottom: 5.5px;
+}
+.detail-bullets-wrapper:last-child {
+margin-bottom: 4.5px;
+}
+</style>
+<div id="detailBulletsWrapper_feature_div" data-feature-name="detailBullets" data-template-name="detailBullets" class="a-section feature detail-bullets-wrapper bucket" data-cel-widget="detailBulletsWrapper_feature_div">
+<hr aria-hidden="true" class="a-divider-normal bucketDivider">
+<h2>登録情報
+</h2>
+<span class="disclaim">
 </span>
-<span>7166 KB</span>
+<div id="detailBullets_feature_div">
+<ul class="a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list">
+<li><span class="a-list-item">
+<span class="a-text-bold">ASIN
+‏
+:
+‎
+</span>
+<span>B00OKC23LI</span>
 </span></li>
 <li><span class="a-list-item">
-<span class="detail-bullet-label a-text-bold">出版社
+<span class="a-text-bold">出版社
+‏
 :
+‎
 </span>
 <span>testPublisher (2020/1/1)</span>
 </span></li>
 <li><span class="a-list-item">
-<span class="detail-bullet-label a-text-bold">推定ページ数
+<span class="a-text-bold">発売日
+‏
 :
+‎
 </span>
-<span>435ページ</span>
+<span>2011/10/12</span>
 </span></li>
 <li><span class="a-list-item">
-<span class="detail-bullet-label a-text-bold">Word Wise
+<span class="a-text-bold">言語
+‏
 :
+‎
+</span>
+<span>日本語</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">ファイルサイズ
+‏
+:
+‎
+</span>
+<span>10510 KB</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">Text-to-Speech（テキスト読み上げ機能）
+‏
+:
+‎
+</span>
+<span>有効</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">X-Ray
+‏
+:
+‎
 </span>
 <span>有効にされていません</span>
 </span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">Word Wise
+‏
+:
+‎
+</span>
+<span>有効にされていません</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">本の長さ
+‏
+:
+‎
+</span>
+<span>221ページ</span>
+</span></li>
+</ul>
+</div>
+<ul class="a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list">
+<li><span class="a-list-item">
+<span class="a-text-bold">
+Amazon 売れ筋ランキング:
+</span>
+  - 47,078位Kindleストア (<a href="/gp/bestsellers/digital-text/ref=pd_zg_ts_digital-text">の売れ筋ランキングを見るKindleストア</a>)
+<ul class="a-unordered-list a-nostyle a-vertical zg_hrsr">
+<li><span class="a-list-item">  - 802位<a href="/gp/bestsellers/digital-text/2292103051/ref=pd_zg_hrsr_digital-text">哲学・思想 (Kindleストア)</a></span></li>
+<li><span class="a-list-item">  - 862位<a href="/gp/bestsellers/books/554166/ref=pd_zg_hrsr_books">思想</a></span></li>
+</ul>
+</span></li>
+</ul>
+<ul class="a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list">
+<li><span class="a-list-item">
+<span class="a-text-bold">
+カスタマーレビュー:
+</span>
+<style type="text/css">
+/*
+* Fix for UDP-1061. Average customer reviews has a small extra line on hover
+* https://omni-grok.amazon.com/xref/src/appgroup/websiteTemplates/retail/SoftlinesDetailPageAssets/udp-intl-lock/src/legacy.css?indexName=WebsiteTemplates#40
+*/
+.noUnderline a:hover {
+text-decoration: none;
+}
+</style>
+<div id="detailBullets_averageCustomerReviews" data-asin="B00OKC23LI" data-ref="dpx_acr_pop_">
+<span class="a-declarative" data-action="acrStarsLink-click-metrics" data-acrstarslink-click-metrics="{}">
+<span id="acrPopover" class="reviewCountTextLinkedHistogram noUnderline" title="5つ星のうち4.8">
+<span class="a-declarative" data-action="a-popover" data-a-popover="{&quot;max-width&quot;:&quot;700&quot;,&quot;closeButton&quot;:&quot;false&quot;,&quot;position&quot;:&quot;triggerBottom&quot;,&quot;url&quot;:&quot;/gp/customer-reviews/widgets/average-customer-review/popover/ref=dpx_acr_pop_?contextId=dpx&amp;asin=B00OKC23LI&quot;}">
+<a href="javascript:void(0)" class="a-popover-trigger a-declarative">
+<i class="a-icon a-icon-star a-star-5"><span class="a-icon-alt">5つ星のうち4.8</span></i>
+<i class="a-icon a-icon-popover"></i></a>
+</span>
+<span class="a-letter-space"></span>
+</span>
+</span>
+<span class="a-letter-space"></span>
+<span class="a-declarative" data-action="acrLink-click-metrics" data-acrlink-click-metrics="{}">
+<a id="acrCustomerReviewLink" class="a-link-normal" href="#customerReviews">
+<span id="acrCustomerReviewText" class="a-size-base">11個の評価</span>
+</a>
+</span>
+<script type="text/javascript">
+P.when('A', 'ready').execute(function(A) {
+A.declarative('acrLink-click-metrics', 'click', { "allowLinkDefault" : true }, function(event){
+if(window.ue) {
+ue.count("acrLinkClickCount", (ue.count("acrLinkClickCount") || 0) + 1);
+}
+});
+});
+</script>
+<script type="text/javascript">
+P.when('A', 'cf').execute(function(A) {
+A.declarative('acrStarsLink-click-metrics', 'click', { "allowLinkDefault" : true },  function(event){
+if(window.ue) {
+ue.count("acrStarsLinkWithPopoverClickCount", (ue.count("acrStarsLinkWithPopoverClickCount") || 0) + 1);
+}
+});
+});
+</script>
+</div>
+</span></li>
+</ul>
+<div class="a-row">
+</div>
+<div class="a-row">
+</div>
+</div>
 </div>`;
 
   document.body.innerHTML = dom;
@@ -184,40 +304,133 @@ test("Scrape paper book image url", () => {
 });
 
 test("Scrape paper book publish info", () => {
-  const dom = `<div id="detailBulletsWrapper_feature_div">
-<ul>
+  const dom = `<div id="detailBulletsWrapper_feature_div" data-feature-name="detailBullets" data-template-name="detailBullets" class="a-section feature detail-bullets-wrapper bucket" data-cel-widget="detailBulletsWrapper_feature_div">
+<hr aria-hidden="true" class="a-divider-normal bucketDivider">
+<h2>登録情報
+</h2>
+<span class="disclaim">
+</span>
+<div id="detailBullets_feature_div">
+<ul class="a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list">
 <li><span class="a-list-item">
-<span class="detail-bullet-label a-text-bold">出版社
+<span class="a-text-bold">出版社
+‏
 :
+‎
 </span>
 <span>testPaperBookPublisher (2020/1/1)</span>
 </span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">発売日
+‏
+:
+‎
+</span>
+<span>2006/4/1</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">言語
+‏
+:
+‎
+</span>
+<span>日本語</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">単行本
+‏
+:
+‎
+</span>
+<span>284ページ</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">ISBN-10
+‏
+:
+‎
+</span>
+<span>4791762304</span>
+</span></li>
+<li><span class="a-list-item">
+<span class="a-text-bold">ISBN-13
+‏
+:
+‎
+</span>
+<span>978-4791762309</span>
+</span></li>
 </ul>
-</div>`;
-  document.body.innerHTML = dom;
-
-  const scraper = new AmazonScraper();
-  const expectedPublishInfo: PublishInfo = {
-    publisher: "testPaperBookPublisher",
-    publishDate: "2020/1/1",
-  };
-  expect(scraper.scrapePaperBookPublishInfo()).toEqual(expectedPublishInfo);
+</div>
+<ul class="a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list">
+<li><span class="a-list-item">
+<span class="a-text-bold">
+Amazon 売れ筋ランキング:
+</span>
+  - 722,254位本 (<a href="/gp/bestsellers/books/ref=pd_zg_ts_books">の売れ筋ランキングを見る本</a>)
+<ul class="a-unordered-list a-nostyle a-vertical zg_hrsr">
+<li><span class="a-list-item">  - 209位<a href="/gp/bestsellers/books/872412/ref=pd_zg_hrsr_books">思想誌</a></span></li>
+<li><span class="a-list-item">  - 930位<a href="/gp/bestsellers/books/500098/ref=pd_zg_hrsr_books">フランス・オランダの思想</a></span></li>
+<li><span class="a-list-item">  - 1,873位<a href="/gp/bestsellers/books/507134/ref=pd_zg_hrsr_books">フランス文学研究</a></span></li>
+</ul>
+</span></li>
+</ul>
+<ul class="a-unordered-list a-nostyle a-vertical a-spacing-none detail-bullet-list">
+<li><span class="a-list-item">
+<span class="a-text-bold">
+カスタマーレビュー:
+</span>
+<style type="text/css">
+/*
+* Fix for UDP-1061. Average customer reviews has a small extra line on hover
+* https://omni-grok.amazon.com/xref/src/appgroup/websiteTemplates/retail/SoftlinesDetailPageAssets/udp-intl-lock/src/legacy.css?indexName=WebsiteTemplates#40
+*/
+.noUnderline a:hover {
+text-decoration: none;
+}
+</style>
+<div id="detailBullets_averageCustomerReviews" data-asin="4791762304" data-ref="dpx_acr_pop_">
+<span class="a-declarative" data-action="acrStarsLink-click-metrics" data-acrstarslink-click-metrics="{}">
+<span id="acrPopover" class="reviewCountTextLinkedHistogram noUnderline" title="5つ星のうち5.0">
+<span class="a-declarative" data-action="a-popover" data-a-popover="{&quot;max-width&quot;:&quot;700&quot;,&quot;closeButton&quot;:&quot;false&quot;,&quot;position&quot;:&quot;triggerBottom&quot;,&quot;url&quot;:&quot;/gp/customer-reviews/widgets/average-customer-review/popover/ref=dpx_acr_pop_?contextId=dpx&amp;asin=4791762304&quot;}">
+<a href="javascript:void(0)" class="a-popover-trigger a-declarative">
+<i class="a-icon a-icon-star a-star-5"><span class="a-icon-alt">5つ星のうち5.0</span></i>
+<i class="a-icon a-icon-popover"></i></a>
+</span>
+<span class="a-letter-space"></span>
+</span>
+</span>
+<span class="a-letter-space"></span>
+<span class="a-declarative" data-action="acrLink-click-metrics" data-acrlink-click-metrics="{}">
+<a id="acrCustomerReviewLink" class="a-link-normal" href="#customerReviews">
+<span id="acrCustomerReviewText" class="a-size-base">3個の評価</span>
+</a>
+</span>
+<script type="text/javascript">
+P.when('A', 'ready').execute(function(A) {
+A.declarative('acrLink-click-metrics', 'click', { "allowLinkDefault" : true }, function(event){
+if(window.ue) {
+ue.count("acrLinkClickCount", (ue.count("acrLinkClickCount") || 0) + 1);
+}
 });
-
-test("Scrape paper book publish info if line feed increases in dom", () => {
-  const dom = `<div id="detailBulletsWrapper_feature_div">
-<ul>
-<li><span class="a-list-item">
-<span class="detail-bullet-label a-text-bold">出版社
-
-
-:
-
-
-</span>
-<span>testPaperBookPublisher (2020/1/1)</span>
+});
+</script>
+<script type="text/javascript">
+P.when('A', 'cf').execute(function(A) {
+A.declarative('acrStarsLink-click-metrics', 'click', { "allowLinkDefault" : true },  function(event){
+if(window.ue) {
+ue.count("acrStarsLinkWithPopoverClickCount", (ue.count("acrStarsLinkWithPopoverClickCount") || 0) + 1);
+}
+});
+});
+</script>
+</div>
 </span></li>
 </ul>
+<div class="a-row">
+</div>
+<div class="a-row">
+</div>
 </div>`;
   document.body.innerHTML = dom;
 

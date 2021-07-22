@@ -26,15 +26,15 @@ export class AmazonScraper {
       .getElementById("detailBulletsWrapper_feature_div")
       .textContent.replace(/r?\n/g, "");
 
-    console.log(productDetails); // debug
+    console.log("productDetails:", productDetails); // debug
     return this.generatePublishInfo(productDetails);
   }
 
   private generatePublishInfo(rawPublishInfo: string): PublishInfo {
     const publishInfoArray: RegExpMatchArray = rawPublishInfo.match(
-      /.*出版社:(.*?)\((.*?)\)/
+      /出版社‏:‎(.*?)\((.*?)\)/
     );
-    console.log(publishInfoArray); // debug
+    console.log("publishInfoArray:", publishInfoArray); // debug
     const publisher = publishInfoArray[1].trim();
     const publishDate = publishInfoArray[2];
 

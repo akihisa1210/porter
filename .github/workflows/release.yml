@@ -7,7 +7,7 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'releases/v')
+    if: ${{ github.event.pull_request.merged }} == true && startsWith(${{ github.head_ref }}, 'releases/v');
     steps:
       - uses: actions/checkout@v2
         with:

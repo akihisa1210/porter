@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+import { test, expect } from "vitest";
 import { Amazon } from "../../src/site/amazon";
 
 test("Ebook is selected", () => {

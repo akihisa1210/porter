@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { Scrapbox } from "../src/Scrapbox";
 import { PostTitle, PostContent } from "../src/Post";
 

@@ -29,6 +29,7 @@
   "scripts": {
     "lint": "eslint ./src/**/*.ts",
     "test": "vitest",
+    "coverage": "vitest --coverage --run",
     "build": "webpack",
     "watch": "webpack -w",
     "release": "shipjs prepare"

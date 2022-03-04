@@ -51,7 +51,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test
-        run: npm test
+        run: npm run coverage
       - name: Upload coverage report
         uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052 #v2.0.1
         with:

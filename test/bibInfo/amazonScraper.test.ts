@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+import { test, expect } from "vitest";
 import { AmazonScraper } from "../../src/bibInfo/amazonScraper";
 import { AuthorInfo, PublishInfo } from "../../src/bibInfo/bibInfo";
 
@@ -229,7 +231,7 @@ test("Scrape empty description", () => {
 
 test("Scrape current URL", () => {
   const scraper = new AmazonScraper();
-  expect(scraper.scrapeCurrentUrl()).toBe("http://localhost/");
+  expect(scraper.scrapeCurrentUrl()).toBe("http://localhost:3000/");
 });
 
 test("Scrape authors info", () => {

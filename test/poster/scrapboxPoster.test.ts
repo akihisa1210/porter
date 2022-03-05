@@ -22,6 +22,7 @@ afterEach(() => {
 
 test("ScrapboxPoster posts bibliography to Scrapbox", () => {
   const mockedWindowOpen = vi.fn();
+  // @ts-expect-error
   vi.spyOn(global, "window", "get").mockImplementation(() => ({
     open: mockedWindowOpen,
   }));

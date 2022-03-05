@@ -41,11 +41,6 @@ ISBN/ASIN: ${this.bibliography.isbn}
   }
 
   run(): void {
-    console.log(
-      `https://scrapbox.io/${this.projectName}/${encodeURIComponent(
-        this.compileTitle()
-      )}?body=${encodeURIComponent(this.compileBody())}`
-    );
     window.open(
       `https://scrapbox.io/${this.projectName}/${encodeURIComponent(
         this.compileTitle()

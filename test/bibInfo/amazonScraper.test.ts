@@ -218,16 +218,13 @@ test("Scrape empty description", () => {
   expect(scraper.scrapeDescription()).toBe(``);
 });
 
-// Real dom is here but on jsdom document.getElementById for img
-// doesn't work...
-//
-// test("Scrape Ebook image URL", () => {
-//   const dom = `<img src="testImageUrl" id="ebooksImgBlkFront">`;
-//   document.body.innerHTML = dom;
+test("Scrape Ebook image URL", () => {
+  const dom = `<div src="testEbookImageUrl" id="ebooksImgBlkFront"></div>`;
+  document.body.innerHTML = dom;
 
-//   const scraper = new AmazonScraper();
-//   expect(scraper.scrapeEbookAsin()).toBe("testImageUrl");
-// });
+  const scraper = new AmazonScraper();
+  expect(scraper.scrapeEbookImageUrl()).toBe("testEbookImageUrl");
+});
 
 test("Scrape current URL", () => {
   const scraper = new AmazonScraper();

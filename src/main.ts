@@ -1,13 +1,8 @@
-import { Scrapbox } from "./Scrapbox";
-import {
-  PostTitle,
-  PostContent,
-  ScrapboxBibliographicInformation,
-} from "./Post";
+import { PostTitle } from "./Post";
 import { Amazon } from "./site/amazon";
 import { BibInfoFactory } from "./bibInfo/bibInfoFactory";
-
-const scrapboxUserName = "akihisa1210";
+import { Bibliography } from "./bibliography/bibliography";
+import { ScrapboxPoster } from "./poster/scrapboxPoster";
 
 const main = (): void => {
   const amazon = new Amazon();
@@ -23,17 +18,29 @@ const main = (): void => {
     console.log("PaperBookAmazonBibliograhicInformation", bibInfo);
   }
 
-  const scrapboxPageTitle = new PostTitle(
+  new PostTitle(
     window.prompt('Scrap "Amazon" to your scrapbox.', `『${bibInfo.title}』`)
   );
 
-  const scrapboxInfo = new ScrapboxBibliographicInformation(bibInfo);
+  // TODO: remove BibInfo
+  const authors = bibInfo.authorsInfo.map((authorInfo) => {
+    return {
+      name: authorInfo.author,
+      contribution: authorInfo.contribution.replace(/\(|\)|,/g, ""),
+    };
+  });
+  const bibliography: Bibliography = {
+    title: bibInfo.title,
+    imageUrl: bibInfo.imageUrl,
+    sourceUrl: bibInfo.sourceUrl,
+    authors: authors,
+    publisher: bibInfo.publishInfo.publisher,
+    publicationDate: bibInfo.publishInfo.publishDate,
+    isbn: bibInfo.isbn,
+    description: bibInfo.description,
+  };
 
-  const scrapboxPageContent = new PostContent(scrapboxInfo.scrapboxInfo);
-
-  const scrapbox = new Scrapbox(scrapboxUserName);
-  window.open(
-    scrapbox.constructScrapboxUrl(scrapboxPageTitle, scrapboxPageContent)
-  );
+  const poster = new ScrapboxPoster(bibliography);
+  poster.run();
 };
 main();

@@ -25,7 +25,10 @@ test("Scrape Paperbook page and post its Bibliography", async ({
   );
   expect(scrapboxUrl.query).toEqual(
     "body=" +
-      encodeURIComponent(`[testPaperBookImageUrl file:///home/akihisa/ghq/github.com/akihisa1210/amazon-bibliographic-information-to-scrapbox/e2e/static/paperbook.html]
+      encodeURIComponent(`[testPaperBookImageUrl file://${path.join(
+        __dirname,
+        "/static/paperbook.html"
+      )}]
 [testAuthor1](testContribution1) [testAuthor2](testContribution2)
 出版社: [testPaperBookPublisher] ([2020/1]/1)
 ISBN/ASIN: testPaperBookAsin

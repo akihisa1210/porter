@@ -25,7 +25,6 @@
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "postinstall": "playwright install chrome",
     "lint": "eslint ./src/**/*.ts",
     "test": "vitest",
     "coverage": "vitest --coverage --run",

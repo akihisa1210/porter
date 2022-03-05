@@ -74,5 +74,5 @@ jobs:
             ${{ runner.os }}-
       - run: npm ci
       - run: npm run build
-      - run: npx playwright install --with-deps chrome
+      - run: npx playwright install --with-deps chromium
       - run: npm run e2e

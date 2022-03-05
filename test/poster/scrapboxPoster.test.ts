@@ -29,9 +29,18 @@ test("ScrapboxPoster posts bibliography to Scrapbox", () => {
   const poster = new ScrapboxPoster(bibliography);
   poster.run();
   expect(mockedWindowOpen.mock.calls.length).toEqual(1);
+
+  const expectedBody = `[testImageUrl testSourceUrl]
+[testAuthor1](著) [testAuthor2](翻訳)
+出版社: [testPublisher] ([2020/1]/1)
+ISBN/ASIN: testISBN
+>testDescription1
+>testDescription2
+#本
+`;
   expect(mockedWindowOpen.mock.calls[0][0]).toEqual(
     `https://scrapbox.io/akihisa1210/${encodeURIComponent(
       "『testTitle』"
-    )}?body=${encodeURIComponent(poster.compileBody())}`
+    )}?body=${encodeURIComponent(expectedBody)}`
   );
 });

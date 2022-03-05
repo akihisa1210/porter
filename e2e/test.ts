@@ -2,11 +2,13 @@ import { test, expect } from "@playwright/test";
 import path from "path";
 import url from "url";
 
+const htmlPath = path.join(__dirname, "/static/paperbook.html");
+
 test("Scrape Paperbook page and post its Bibliography", async ({
   page,
   context,
 }) => {
-  await page.goto(`file:${path.join(__dirname, "/static/paperbook.html")}`);
+  await page.goto(`file:${htmlPath}`);
 
   page.on("dialog", async (dialog) => {
     expect(dialog.message()).toEqual('Scrap "Amazon" to your scrapbox.');
@@ -25,10 +27,7 @@ test("Scrape Paperbook page and post its Bibliography", async ({
   );
   expect(scrapboxUrl.query).toEqual(
     "body=" +
-      encodeURIComponent(`[testPaperBookImageUrl file://${path.join(
-        __dirname,
-        "/static/paperbook.html"
-      )}]
+      encodeURIComponent(`[testPaperBookImageUrl file://${htmlPath}]
 [testAuthor1](testContribution1) [testAuthor2](testContribution2)
 出版社: [testPaperBookPublisher] ([2020/1]/1)
 ISBN/ASIN: testPaperBookAsin

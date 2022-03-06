@@ -1,10 +1,19 @@
 import { Author, Bibliography } from "../bibliography/bibliography";
 
 export class AmazonScraper {
-  private isEbook: boolean;
+  private isEBook: boolean;
 
   constructor() {
-    this.isEbook = false;
+    this.isEBook = ((): boolean => {
+      const selectedBookTypePanel = document.getElementsByClassName(
+        "swatchElement selected"
+      )[0];
+      if (selectedBookTypePanel === undefined) {
+        // selectedBookTypePanel が存在しない書籍ページ
+        return false;
+      }
+      return selectedBookTypePanel.textContent.includes("電子書籍");
+    })();
   }
 
   private scrapeTitle(): string {
@@ -12,6 +21,12 @@ export class AmazonScraper {
   }
 
   private scrapeImageUrl(): string {
+    if (this.isEBook) {
+      return document
+        .getElementById("ebooksImgBlkFront")
+        .getAttribute("src")
+        .trim();
+    }
     return document.getElementById("imgBlkFront").getAttribute("src").trim();
   }
 
@@ -54,6 +69,12 @@ export class AmazonScraper {
   }
 
   private scrapeISBN(): string {
+    if (this.isEBook) {
+      return document
+        .getElementsByName("ASIN.0")[0]
+        .getAttribute("value")
+        .trim();
+    }
     return document.getElementById("ASIN").getAttribute("value").trim();
   }
 

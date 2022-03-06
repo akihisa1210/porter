@@ -3,8 +3,11 @@ import path from "path";
 import url from "url";
 
 const bookmarkletPath = path.join(__dirname, "../dist/main.js");
-const paperBookPagePath = path.join(__dirname, "/static/paperbook.html");
-const eBookPagePath = path.join(__dirname, "/static/ebook.html");
+const paperBookPagePath = path.join(
+  __dirname,
+  "../fixture/static/paperbook.html"
+);
+const eBookPagePath = path.join(__dirname, "../fixture/static/ebook.html");
 
 const paperBookExpectedPost =
   "body=" +

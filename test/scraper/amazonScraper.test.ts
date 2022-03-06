@@ -6,9 +6,9 @@ import path from "path";
 
 const paperBookHTMLPath = path.join(
   __dirname,
-  "../../e2e/static/paperbook.html"
+  "../../fixture/static/paperbook.html"
 );
-const eBookHTMLPath = path.join(__dirname, "../../e2e/static/ebook.html");
+const eBookHTMLPath = path.join(__dirname, "../../fixture/static/ebook.html");
 
 const paperBookBibliography: Bibliography = {
   title: "testTitle",

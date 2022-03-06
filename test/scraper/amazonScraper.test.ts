@@ -9,6 +9,14 @@ const paperBookHTMLPath = path.join(
   "../../fixture/static/paperbook.html"
 );
 const eBookHTMLPath = path.join(__dirname, "../../fixture/static/ebook.html");
+const paperBookWithoutBookTypeSelectPanelHTMLPath = path.join(
+  __dirname,
+  "../../fixture/static/paperbook-without-book-type-select-panel.html"
+);
+const paperBookWithoutDescriptionHTMLPath = path.join(
+  __dirname,
+  "../../fixture/static/paperbook-without-description.html"
+);
 
 const paperBookBibliography: Bibliography = {
   title: "testTitle",
@@ -40,6 +48,16 @@ const eBookBibliography: Bibliography = {
 test.each([
   ["paper book", paperBookHTMLPath, paperBookBibliography],
   ["e-book", eBookHTMLPath, eBookBibliography],
+  [
+    "paper book without book type select panel",
+    paperBookWithoutBookTypeSelectPanelHTMLPath,
+    paperBookBibliography,
+  ],
+  [
+    "paper book without description",
+    paperBookWithoutDescriptionHTMLPath,
+    { ...paperBookBibliography, description: "" },
+  ],
 ])(
   "AmazonScraper scrapes bibliography of %s",
   async (_, HTMLPath, expectedBibliography) => {

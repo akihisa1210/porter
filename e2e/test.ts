@@ -42,6 +42,12 @@ const testCases = [
   ],
 ];
 
+test.beforeEach(async ({ context }) => {
+  await context.route(/scrapbox.io/, (route) => {
+    route.fulfill({ body: "<h1>Mocked Scrapbox</h1>" });
+  });
+});
+
 for (const [testCaseName, pagePath, expectedPost] of testCases) {
   test(testCaseName, async ({ page, context }) => {
     await page.goto(`file:${pagePath}`);

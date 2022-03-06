@@ -12,7 +12,7 @@ export class AmazonScraper {
   }
 
   private scrapeImageUrl(): string {
-    return document.getElementById("imgBlkFront").getAttribute("src");
+    return document.getElementById("imgBlkFront").getAttribute("src").trim();
   }
 
   private scrapeSourceUrl(): string {
@@ -20,47 +20,24 @@ export class AmazonScraper {
   }
 
   private scrapeAuthors(): Author[] {
-    const authorsHTMLCollectionArray = Array.from(
-      document.getElementsByClassName("author")
-    );
+    return Array.from(document.getElementsByClassName("author")).map(
+      (element) => {
+        const name: string = element
+          .getElementsByTagName("a")[0]
+          .textContent.replace(/のAmazon著者ページを見る/, "")
+          .trim();
 
-    const authors: Author[] = [];
+        const contribution: string = element
+          .getElementsByClassName("a-color-secondary")[0]
+          .textContent.replace(/\(|\)|,/g, "")
+          .trim();
 
-    for (const element of authorsHTMLCollectionArray) {
-      // Scrape author.
-      // Sometimes author is followed by "のAmazon著者ページを見る".
-      const authorLink: string = element.getElementsByTagName("a")[0]
-        .textContent;
-
-      const authorLinkMatchArray = authorLink.match(
-        /(.+)のAmazon著者ページを見る/
-      );
-
-      let name;
-      if (authorLinkMatchArray) {
-        name = authorLinkMatchArray[1];
-      } else {
-        name = authorLink;
+        return { name, contribution };
       }
-
-      // Scrape contribution.
-      const contribution: string = element
-        .getElementsByClassName("a-color-secondary")[0]
-        .textContent.replace(/\(|\)|,/g, "");
-      authors.push({
-        name,
-        contribution,
-      });
-    }
-    return authors;
+    );
   }
 
   private scrapePublisher(): string {
-    console.log(
-      document
-        .getElementById("detailBulletsWrapper_feature_div")
-        .textContent.replace(/r?\n/g, "")
-    );
     return document
       .getElementById("detailBulletsWrapper_feature_div")
       .textContent.replace(/r?\n/g, "")
@@ -77,7 +54,7 @@ export class AmazonScraper {
   }
 
   private scrapeISBN(): string {
-    return document.getElementById("ASIN").getAttribute("value");
+    return document.getElementById("ASIN").getAttribute("value").trim();
   }
 
   private scrapeDescription(): string {

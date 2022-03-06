@@ -5,11 +5,11 @@ export type Author = {
 
 export type Bibliography = {
   title: string;
-  imageUrl: string;
-  sourceUrl: string;
+  imageURL: string;
+  sourceURL: string;
   authors: Author[];
   publisher: string;
   publicationDate: string;
-  isbn: string;
+  ISBN: string;
   description: string;
 };

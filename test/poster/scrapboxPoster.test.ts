@@ -4,15 +4,15 @@ import { ScrapboxPoster } from "../../src/poster/scrapboxPoster";
 
 const bibliography: Bibliography = {
   title: "testTitle",
-  imageUrl: "testImageUrl",
-  sourceUrl: "testSourceUrl",
+  imageURL: "testImageUrl",
+  sourceURL: "testSourceUrl",
   authors: [
     { name: "testAuthor1", contribution: "著" },
     { name: "testAuthor2", contribution: "翻訳" },
   ],
   publisher: "testPublisher",
   publicationDate: "2020/1/1",
-  isbn: "testISBN",
+  ISBN: "testISBN",
   description: "testDescription1\ntestDescription2",
 };
 

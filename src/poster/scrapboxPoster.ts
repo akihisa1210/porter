@@ -27,14 +27,14 @@ export class ScrapboxPoster {
   }
 
   private compileBody(): string {
-    return `[${this.bibliography.imageUrl} ${this.bibliography.sourceUrl}]
+    return `[${this.bibliography.imageURL} ${this.bibliography.sourceURL}]
 ${this.makeAuthorsLink(this.bibliography.authors).join(" ")}
 出版社: [${
       this.bibliography.publisher
     }] (${this.makePublicationYearAndMonthLink(
       this.bibliography.publicationDate
     )})
-ISBN/ASIN: ${this.bibliography.isbn}
+ISBN/ASIN: ${this.bibliography.ISBN}
 >${this.bibliography.description.replace(/\n/g, "\n>")}
 #本
 `;

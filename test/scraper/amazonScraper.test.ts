@@ -20,28 +20,28 @@ const paperBookWithoutDescriptionHTMLPath = path.join(
 
 const paperBookBibliography: Bibliography = {
   title: "testTitle",
-  imageUrl: "testPaperBookImageUrl",
-  sourceUrl: "http://localhost:3000/",
+  imageURL: "testPaperBookImageUrl",
+  sourceURL: "http://localhost:3000/",
   authors: [
     { name: "testAuthor1", contribution: "testContribution1" },
     { name: "testAuthor2", contribution: "testContribution2" },
   ],
   publisher: "testPaperBookPublisher",
   publicationDate: "2020/1/1",
-  isbn: "testPaperBookAsin",
+  ISBN: "testPaperBookAsin",
   description: "sampleDescription1\nsampleDescription2\nsampleDescription3",
 };
 const eBookBibliography: Bibliography = {
   title: "testTitle",
-  imageUrl: "testEBookImageUrl",
-  sourceUrl: "http://localhost:3000/",
+  imageURL: "testEBookImageUrl",
+  sourceURL: "http://localhost:3000/",
   authors: [
     { name: "testAuthor1", contribution: "testContribution1" },
     { name: "testAuthor2", contribution: "testContribution2" },
   ],
   publisher: "testEBookPublisher",
   publicationDate: "2020/1/1",
-  isbn: "testEBookAsin",
+  ISBN: "testEBookAsin",
   description: "sampleDescription1\nsampleDescription2\nsampleDescription3",
 };
 

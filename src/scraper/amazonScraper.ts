@@ -96,12 +96,12 @@ export class AmazonScraper {
   run(): Bibliography {
     return {
       title: this.scrapeTitle(),
-      imageUrl: this.scrapeImageUrl(),
-      sourceUrl: this.scrapeSourceUrl(),
+      imageURL: this.scrapeImageUrl(),
+      sourceURL: this.scrapeSourceUrl(),
       authors: this.scrapeAuthors(),
       publisher: this.scrapePublisher(),
       publicationDate: this.scrapePublicationDate(),
-      isbn: this.scrapeISBN(),
+      ISBN: this.scrapeISBN(),
       description: this.scrapeDescription(),
     };
   }

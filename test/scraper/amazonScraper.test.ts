@@ -1,0 +1,74 @@
+import { expect, test } from "vitest";
+import { AmazonScraper } from "../../src/scraper/amazonScraper";
+import { Bibliography } from "../../src/bibliography/bibliography";
+import { JSDOM } from "jsdom";
+import path from "path";
+
+const paperBookHTMLPath = path.join(
+  __dirname,
+  "../../fixture/static/paperbook.html"
+);
+const eBookHTMLPath = path.join(__dirname, "../../fixture/static/ebook.html");
+const paperBookWithoutBookTypeSelectPanelHTMLPath = path.join(
+  __dirname,
+  "../../fixture/static/paperbook-without-book-type-select-panel.html"
+);
+const paperBookWithoutDescriptionHTMLPath = path.join(
+  __dirname,
+  "../../fixture/static/paperbook-without-description.html"
+);
+
+const paperBookBibliography: Bibliography = {
+  title: "testTitle",
+  imageURL: "testPaperBookImageUrl",
+  sourceURL: "http://localhost:3000/",
+  authors: [
+    { name: "testAuthor1", contribution: "testContribution1" },
+    { name: "testAuthor2", contribution: "testContribution2" },
+  ],
+  publisher: "testPaperBookPublisher",
+  publicationDate: "2020/1/1",
+  ISBN: "testPaperBookAsin",
+  description: "sampleDescription1\nsampleDescription2\nsampleDescription3",
+};
+const eBookBibliography: Bibliography = {
+  title: "testTitle",
+  imageURL: "testEBookImageUrl",
+  sourceURL: "http://localhost:3000/",
+  authors: [
+    { name: "testAuthor1", contribution: "testContribution1" },
+    { name: "testAuthor2", contribution: "testContribution2" },
+  ],
+  publisher: "testEBookPublisher",
+  publicationDate: "2020/1/1",
+  ISBN: "testEBookAsin",
+  description: "sampleDescription1\nsampleDescription2\nsampleDescription3",
+};
+
+test.each([
+  ["paper book", paperBookHTMLPath, paperBookBibliography],
+  ["e-book", eBookHTMLPath, eBookBibliography],
+  [
+    "paper book without book type select panel",
+    paperBookWithoutBookTypeSelectPanelHTMLPath,
+    paperBookBibliography,
+  ],
+  [
+    "paper book without description",
+    paperBookWithoutDescriptionHTMLPath,
+    { ...paperBookBibliography, description: "" },
+  ],
+])(
+  "AmazonScraper scrapes bibliography of %s",
+  async (_, HTMLPath, expectedBibliography) => {
+    const jsdom = await JSDOM.fromFile(HTMLPath);
+    Object.defineProperty(window, "document", {
+      writable: true,
+      value: jsdom.window.document,
+    });
+
+    const scraper = new AmazonScraper();
+    const result = scraper.run();
+    expect(result).toEqual(expectedBibliography);
+  }
+);

@@ -3,8 +3,11 @@ import path from "path";
 import url from "url";
 
 const bookmarkletPath = path.join(__dirname, "../dist/main.js");
-const paperBookPagePath = path.join(__dirname, "/static/paperbook.html");
-const eBookPagePath = path.join(__dirname, "/static/ebook.html");
+const paperBookPagePath = path.join(
+  __dirname,
+  "../fixture/static/paperbook.html"
+);
+const eBookPagePath = path.join(__dirname, "../fixture/static/ebook.html");
 
 const paperBookExpectedPost =
   "body=" +
@@ -41,6 +44,12 @@ const testCases = [
     eBookExpectedPost,
   ],
 ];
+
+test.beforeEach(async ({ context }) => {
+  await context.route(/scrapbox.io/, (route) => {
+    route.fulfill({ body: "<h1>Mocked Scrapbox</h1>" });
+  });
+});
 
 for (const [testCaseName, pagePath, expectedPost] of testCases) {
   test(testCaseName, async ({ page, context }) => {

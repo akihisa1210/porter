@@ -2,21 +2,6 @@ import { expect, test } from "vitest";
 import { AmazonScraper } from "../../src/scraper/amazonScraper";
 import { Bibliography } from "../../src/bibliography/bibliography";
 import { JSDOM } from "jsdom";
-import path from "path";
-
-const paperBookHTMLPath = path.join(
-  __dirname,
-  "../../fixture/static/paperbook.html"
-);
-const eBookHTMLPath = path.join(__dirname, "../../fixture/static/ebook.html");
-const paperBookWithoutBookTypeSelectPanelHTMLPath = path.join(
-  __dirname,
-  "../../fixture/static/paperbook-without-book-type-select-panel.html"
-);
-const paperBookWithoutDescriptionHTMLPath = path.join(
-  __dirname,
-  "../../fixture/static/paperbook-without-description.html"
-);
 
 const paperBookBibliography: Bibliography = {
   title: "testTitle",
@@ -31,6 +16,7 @@ const paperBookBibliography: Bibliography = {
   ISBN: "testPaperBookAsin",
   description: "sampleDescription1\nsampleDescription2\nsampleDescription3",
 };
+
 const eBookBibliography: Bibliography = {
   title: "testTitle",
   imageURL: "testEBookImageUrl",
@@ -46,16 +32,16 @@ const eBookBibliography: Bibliography = {
 };
 
 test.each([
-  ["paper book", paperBookHTMLPath, paperBookBibliography],
-  ["e-book", eBookHTMLPath, eBookBibliography],
+  ["paper book", "fixture/static/paperbook.html", paperBookBibliography],
+  ["e-book", "fixture/static/ebook.html", eBookBibliography],
   [
     "paper book without book type select panel",
-    paperBookWithoutBookTypeSelectPanelHTMLPath,
+    "fixture/static/paperbook-without-book-type-select-panel.html",
     paperBookBibliography,
   ],
   [
     "paper book without description",
-    paperBookWithoutDescriptionHTMLPath,
+    "fixture/static/paperbook-without-description.html",
     { ...paperBookBibliography, description: "" },
   ],
 ])(

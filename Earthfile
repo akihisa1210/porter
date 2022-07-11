@@ -22,7 +22,8 @@ unit-test:
     COPY vitest.config.ts vitest.config.ts
     COPY --dir test fixture .
     COPY src src
-    RUN npm test -- --run
+    RUN npm run coverage
+    SAVE ARTIFACT coverage /coverage AS LOCAL coverage
 
 build:
     BUILD +lint

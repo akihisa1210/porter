@@ -3,6 +3,7 @@ FROM node:16.14.0-buster-slim
 WORKDIR /workspace
 
 all:
+    BUILD +build
     BUILD +e2e-test
 
 deps:
@@ -23,7 +24,7 @@ unit-test:
     COPY --dir test fixture .
     COPY src src
     RUN npm run coverage
-    SAVE ARTIFACT coverage /coverage AS LOCAL coverage
+    SAVE ARTIFACT coverage /coverage AS LOCAL ./coverage
 
 build:
     BUILD +lint
@@ -32,7 +33,7 @@ build:
     COPY webpack.config.js tsconfig.json tsconfig.webpack.json .
     COPY src src
     RUN npm run build
-    SAVE ARTIFACT dist /dist AS LOCAL dist
+    SAVE ARTIFACT dist /dist AS LOCAL ./dist
 
 e2e-test:
     FROM mcr.microsoft.com/playwright:v1.23.0-focal

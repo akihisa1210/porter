@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { AmazonScraper } from "../../src/scraper/amazonScraper";
 import { Bibliography } from "../../src/bibliography/bibliography";
 import { JSDOM } from "jsdom";
@@ -48,10 +48,7 @@ test.each([
   "AmazonScraper scrapes bibliography of %s",
   async (_, HTMLPath, expectedBibliography) => {
     const jsdom = await JSDOM.fromFile(HTMLPath);
-    Object.defineProperty(window, "document", {
-      writable: true,
-      value: jsdom.window.document,
-    });
+    vi.stubGlobal("document", jsdom.window.document);
 
     const scraper = new AmazonScraper();
     const result = scraper.run();

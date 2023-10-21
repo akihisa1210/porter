@@ -9,6 +9,7 @@
     "@types/node": "^14.0.1",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
+    "@vitest/coverage-v8": "^0.34.6",
     "bookmarklet-wrapper-webpack-plugin": "^1.0.1",
     "c8": "^7.11.0",
     "eslint": "^6.8.0",
@@ -19,7 +20,7 @@
     "shipjs": "^0.24.3",
     "ts-loader": "^7.0.4",
     "typescript": "^3.9.2",
-    "vitest": "^0.5.9",
+    "vitest": "^0.34.6",
     "watch": "^1.0.2",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"

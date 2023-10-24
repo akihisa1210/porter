@@ -21,13 +21,7 @@ export class AmazonScraper {
   }
 
   private scrapeImageUrl(): string {
-    if (this.isEBook) {
-      return document
-        .getElementById("ebooksImgBlkFront")
-        .getAttribute("src")
-        .trim();
-    }
-    return document.getElementById("imgBlkFront").getAttribute("src").trim();
+    return document.getElementById("landingImage").getAttribute("src").trim();
   }
 
   private scrapeSourceUrl(): string {
@@ -69,12 +63,6 @@ export class AmazonScraper {
   }
 
   private scrapeISBN(): string {
-    if (this.isEBook) {
-      return document
-        .getElementsByName("ASIN.0")[0]
-        .getAttribute("value")
-        .trim();
-    }
     return document.getElementById("ASIN").getAttribute("value").trim();
   }
 

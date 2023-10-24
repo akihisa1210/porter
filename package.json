@@ -30,6 +30,7 @@
     "build": "webpack",
     "watch": "webpack -w",
     "e2e": "playwright test",
+    "build-e2e": "webpack && playwright test",
     "release": "shipjs prepare"
   },
   "repository": {

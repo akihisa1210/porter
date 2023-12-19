@@ -1,7 +1,13 @@
 import { Author, Bibliography } from "../bibliography/bibliography";
 
+// Introduce branded types to avoid creating URL without URI encoding
+type Brand<K, T> = K & { __brand: T };
+type EncodedURIComponent = Brand<string, "EncodedURIComponent">;
+
 export class ScrapboxPoster {
   readonly bibliography: Bibliography;
+
+  readonly baseURL: string = "https://scrapbox.io";
   readonly projectName: string = "akihisa1210";
 
   constructor(bibliography: Bibliography) {
@@ -22,12 +28,23 @@ export class ScrapboxPoster {
     }]/${publishDate.getDate()}`;
   }
 
-  private compileTitle(): string {
-    return `『${this.bibliography.title.trim()}』`;
+  private encodeURIComponentWithType(string): EncodedURIComponent {
+    return encodeURIComponent(string) as EncodedURIComponent;
   }
 
-  private compileBody(): string {
-    return `[${this.bibliography.imageURL} ${this.bibliography.sourceURL}]
+  private encodeProjectName(): EncodedURIComponent {
+    return this.encodeURIComponentWithType(this.projectName);
+  }
+
+  private compileAndURIEncodeTitle(): EncodedURIComponent {
+    const compiledTitle = `『${this.bibliography.title.trim()}』`;
+    return this.encodeURIComponentWithType(compiledTitle);
+  }
+
+  private compileAndURIEncodeBody(): EncodedURIComponent {
+    const compiledBody = `[${this.bibliography.imageURL} ${
+      this.bibliography.sourceURL
+    }]
 ${this.makeAuthorsLink(this.bibliography.authors).join(" ")}
 出版社: [${
       this.bibliography.publisher
@@ -38,13 +55,27 @@ ISBN/ASIN: ${this.bibliography.ISBN}
 >${this.bibliography.description.replace(/\n/g, "\n>")}
 #本
 `;
+    return this.encodeURIComponentWithType(compiledBody);
+  }
+
+  private makeURL(
+    projectName: EncodedURIComponent,
+    title: EncodedURIComponent,
+    body: EncodedURIComponent
+  ): string {
+    const path = `${projectName}/${title}`;
+    const url = new URL(path, this.baseURL);
+
+    return `${url}?body=${body}`;
   }
 
   run(): void {
-    window.open(
-      `https://scrapbox.io/${this.projectName}/${encodeURIComponent(
-        this.compileTitle()
-      )}?body=${encodeURIComponent(this.compileBody())}`
+    const url = this.makeURL(
+      this.encodeProjectName(),
+      this.compileAndURIEncodeTitle(),
+      this.compileAndURIEncodeBody()
     );
+
+    window.open(url);
   }
 }

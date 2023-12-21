@@ -1,11 +1,11 @@
 name: Ship js prepare
 on:
-  push
-#  workflow_dispatch
+  workflow_dispatch
 jobs:
   build:
     name: Prepare release
     runs-on: ubuntu-latest
+    if: ${{ github.ref_name }} == 'main'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,6 +17,6 @@ jobs:
           cache: 'npm'
       - run: |
           npm ci
-      - run: npm run release
+      - run: npm run release -- --yes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

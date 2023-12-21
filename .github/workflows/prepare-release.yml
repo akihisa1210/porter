@@ -1,6 +1,7 @@
 name: Ship js prepare
 on:
-  workflow_dispatch
+  push
+#  workflow_dispatch
 jobs:
   build:
     name: Prepare release

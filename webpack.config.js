@@ -22,4 +22,7 @@ module.exports = {
     extensions: [".ts", ".js"],
   },
   plugins: [new BookmarkletWrapperPlugin()],
+  output: {
+    clean: true,
+  },
 };

@@ -5,16 +5,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       FORCE_COLOR: 1
     steps:
       - uses: actions/checkout@v3
-      - name: Docker login
-        run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
-      - name: Download earthly
-        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.6.19/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
-      - run: earthly --ci +all
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run coverage
+      - run: npm run build
+      - run: npm run e2e
       - name: Upload coverage report
         uses: codecov/codecov-action@c585afe366f940d214dc09df2664c06d7fe07052 #v2.0.1
         with:

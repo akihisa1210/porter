@@ -7,4 +7,7 @@ export default defineConfig({
       reporter: ["text", "json", "html", "lcov"],
     },
   },
+  esbuild: {
+    target: "node22"
+  }
 });

@@ -49,3 +49,7 @@ Unit tests use Vitest and are located in `test/` matching the `src/` structure. 
 ## Development Workflow
 
 Follow Conventional Commits for commit messages. Use `npx git-cz` for guided commit creation. The project uses shipjs for automated releases via GitHub Actions.
+
+## Code Change Guidelines
+
+- コードの変更が完了したら、npm run lintとnpm run testを通すこと。

@@ -83,8 +83,10 @@ export class AmazonScraper implements DataSource {
 	}
 
 	canScrape(): boolean {
-		return window.location.hostname.includes("amazon.co.jp") && 
-			   document.getElementById("productTitle") !== null;
+		return (
+			window.location.hostname.includes("amazon.co.jp") &&
+			document.getElementById("productTitle") !== null
+		);
 	}
 
 	scrape(): Bibliography {

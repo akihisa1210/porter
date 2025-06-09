@@ -8,7 +8,7 @@ type EncodedURIComponent = Brand<string, "EncodedURIComponent">;
 export class ScrapboxPoster implements Destination {
 	name = "Scrapbox";
 	description = "Export to your Scrapbox project";
-	readonly bibliography: Bibliography;
+	private bibliography: Bibliography;
 
 	readonly baseURL: string = "https://scrapbox.io";
 	readonly projectName: string = "akihisa1210";
@@ -74,9 +74,9 @@ ISBN/ASIN: ${this.bibliography.ISBN}
 
 	export(bibliography: Bibliography): void {
 		const oldBibliography = this.bibliography;
-		(this as any).bibliography = bibliography;
+		this.bibliography = bibliography;
 		this.run();
-		(this as any).bibliography = oldBibliography;
+		this.bibliography = oldBibliography;
 	}
 
 	run(): void {

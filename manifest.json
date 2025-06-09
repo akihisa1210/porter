@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Porter - Bibliographic Information Exporter",
+  "version": "1.0.0",
+  "description": "Export bibliographic information from Amazon to various destinations like Scrapbox",
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.amazon.co.jp/*",
+    "https://amazon.co.jp/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Export bibliographic information"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.amazon.co.jp/*",
+        "https://amazon.co.jp/*"
+      ],
+      "js": ["content.simple.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

@@ -1,10 +1,13 @@
 import type { Author, Bibliography } from "../bibliography/bibliography";
+import type { Destination } from "../core/destination";
 
 // Introduce branded types to avoid creating URL without URI encoding
 type Brand<K, T> = K & { __brand: T };
 type EncodedURIComponent = Brand<string, "EncodedURIComponent">;
 
-export class ScrapboxPoster {
+export class ScrapboxPoster implements Destination {
+	name = "Scrapbox";
+	description = "Export to your Scrapbox project";
 	readonly bibliography: Bibliography;
 
 	readonly baseURL: string = "https://scrapbox.io";
@@ -67,6 +70,13 @@ ISBN/ASIN: ${this.bibliography.ISBN}
 		const url = new URL(path, this.baseURL);
 
 		return `${url}?body=${body}`;
+	}
+
+	export(bibliography: Bibliography): void {
+		const oldBibliography = this.bibliography;
+		(this as any).bibliography = bibliography;
+		this.run();
+		(this as any).bibliography = oldBibliography;
 	}
 
 	run(): void {

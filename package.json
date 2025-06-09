@@ -27,6 +27,7 @@
     "test": "vitest run",
     "coverage": "vitest --coverage --run",
     "build": "webpack",
+    "build:extension": "webpack --config webpack.extension.config.js",
     "watch": "webpack -w",
     "e2e": "playwright test",
     "build-e2e": "webpack && playwright test",

@@ -1,6 +1,7 @@
 import type { Author, Bibliography } from "../bibliography/bibliography";
+import type { DataSource } from "../core/dataSource";
 
-export class AmazonScraper {
+export class AmazonScraper implements DataSource {
 	private isEBook: boolean;
 
 	constructor() {
@@ -79,6 +80,17 @@ export class AmazonScraper {
 			.replace(/<\/?b>/g, "")
 			.replace(/<br>/g, "\n")
 			.trim();
+	}
+
+	canScrape(): boolean {
+		return (
+			window.location.hostname.includes("amazon.co.jp") &&
+			document.getElementById("productTitle") !== null
+		);
+	}
+
+	scrape(): Bibliography {
+		return this.run();
 	}
 
 	run(): Bibliography {

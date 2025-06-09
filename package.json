@@ -1,7 +1,7 @@
 {
-  "name": "amazon-bibliographic-information-to-scrapbox",
+  "name": "porter-chrome-extension",
   "version": "1.0.11",
-  "description": "Amazonのページから書誌情報を Scrapbox に取り込むブックマークレットです。元ネタ: https://rashita.net/blog/?p=26075",
+  "description": "Chrome extension to export bibliographic information from Amazon to various destinations like Scrapbox",
   "main": "index.js",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -10,7 +10,6 @@
     "@playwright/test": "^1.52.0",
     "@types/node": "^22.0.0",
     "@vitest/coverage-v8": "^1.6.0",
-    "bookmarklet-wrapper-webpack-plugin": "^1.0.1",
     "globals": "^16.2.0",
     "jsdom": "^24.0.0",
     "shipjs": "^0.26.3",
@@ -26,11 +25,9 @@
     "format": "biome format ./src",
     "test": "vitest run",
     "coverage": "vitest --coverage --run",
-    "build": "webpack",
-    "build:extension": "webpack --config webpack.extension.config.js",
-    "watch": "webpack -w",
+    "build": "webpack --config webpack.extension.config.js",
     "e2e": "playwright test",
-    "build-e2e": "webpack && playwright test",
+    "build-e2e": "npm run build && playwright test",
     "release": "shipjs prepare"
   },
   "repository": {

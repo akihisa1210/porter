@@ -4,13 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a TypeScript project that scrapes bibliographic information from Amazon product pages and posts it to Scrapbox. It supports both bookmarklet and Chrome extension formats. The project uses webpack to build a self-contained JavaScript bookmarklet and Chrome extension files.
+This is a TypeScript Chrome extension that scrapes bibliographic information from Amazon product pages and exports it to various destinations like Scrapbox. The project uses webpack to build Chrome extension files.
 
 ## Key Commands
 
-- `npm run build` - Build the bookmarklet for production
-- `npm run build:extension` - Build Chrome extension files
-- `npm run watch` - Build and watch for changes during development  
+- `npm run build` - Build Chrome extension files
 - `npm run lint` - Run Biome linting
 - `npm run lint:fix` - Fix linting issues automatically
 - `npm test` - Run unit tests with Vitest
@@ -22,18 +20,20 @@ This is a TypeScript project that scrapes bibliographic information from Amazon 
 
 The codebase follows a clean separation of concerns:
 
-- `main.ts` - Entry point that orchestrates scraping and posting
-- `scraper/amazonScraper.ts` - Extracts bibliographic data from Amazon DOM
-- `poster/scrapboxPoster.ts` - Formats data and generates Scrapbox URLs
-- `bibliography/bibliography.ts` - Type definitions for book data
+- `src/core/dataSource.ts` - Interface for data source implementations
+- `src/core/destination.ts` - Interface for export destination implementations  
+- `src/core/porter.ts` - Core orchestration class supporting multiple sources/destinations
+- `src/scraper/amazonScraper.ts` - Extracts bibliographic data from Amazon DOM
+- `src/poster/scrapboxPoster.ts` - Formats data and generates Scrapbox URLs
+- `src/bibliography/bibliography.ts` - Type definitions for book data
 
 The scraper handles different Amazon page layouts (with/without book type panels) and extracts title, authors, publisher, publication date, ISBN, description, and cover image. The poster generates properly encoded Scrapbox URLs with formatted content including author links and publication date links.
 
-The build process uses webpack with a bookmarklet wrapper plugin to create a single JavaScript file that can be saved as a browser bookmark. For Chrome extension, it builds content script and background script files.
+The build process uses webpack to build content script and background script files for the Chrome extension.
 
 ## Chrome Extension
 
-The Chrome extension provides the same functionality as the bookmarklet but with a cleaner UI:
+The Chrome extension provides a clean UI for exporting bibliographic information:
 
 - `manifest.json` - Chrome extension manifest with permissions for Amazon Japan
 - `popup.html` and `popup.js` - Extension popup UI for selecting export destinations
